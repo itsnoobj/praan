@@ -24,12 +24,40 @@ export default function DonorPage() {
   if (registered) {
     return (
       <div style={s.page}><div style={s.container}>
-        <div style={{ textAlign: "center", padding: "60px 0" }}>
+        <div style={{ textAlign: "center", padding: "40px 0" }}>
           <div style={s.checkMark}>✓</div>
           <h2 style={{ fontSize: 22, fontWeight: 600, margin: "0 0 8px" }}>You're in.</h2>
           <p style={{ color: "#666", fontSize: 15 }}>We'll call only when someone truly needs you. Thank you.</p>
-          <a href="#" style={{ color: "#1a1a1a", fontSize: 13, marginTop: 20, display: "inline-block" }}>← Back to home</a>
         </div>
+
+        {/* Affiliate Banner - Diagnostic Partner */}
+        <div style={s.affiliateBanner}>
+          <div style={s.affiliateBadge}>🎁 DONOR BENEFIT</div>
+          <h3 style={s.affiliateTitle}>Your FREE health checkup is ready</h3>
+          <p style={s.affiliateDesc}>As a registered praana donor, get a complimentary Basic Health Screening (Hb, BP, Blood Group Confirmation) at our partner labs.</p>
+          <div style={s.affiliatePartners}>
+            <a href="https://www.thyrocare.com/aarogyam?ref=praana_donor" target="_blank" rel="noopener" style={s.affiliateBtn}>
+              🏥 Book at Thyrocare — FREE
+            </a>
+            <a href="https://redcliffelabs.com/packages?utm_source=praana&utm_medium=affiliate" target="_blank" rel="noopener" style={s.affiliateBtnAlt}>
+              🧪 Book at Redcliffe Labs — FREE
+            </a>
+          </div>
+          <p style={s.affiliateFine}>No payment needed · Walk-in or home collection · Digital reports in 24hrs</p>
+        </div>
+
+        {/* Upgrade CTA */}
+        <div style={s.upgradeBanner}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 12 }}>
+            <div>
+              <strong style={{ fontSize: 14 }}>Want a Full Body Checkup at ₹999 (MRP ₹3,500)?</strong>
+              <p style={{ fontSize: 12, color: "#666", margin: "4px 0 0" }}>Donate 3+ times this year to unlock. Includes 70+ tests.</p>
+            </div>
+            <a href="https://www.thyrocare.com/aarogyam/full-body?ref=praana_donor_premium" target="_blank" rel="noopener" style={s.upgradeBtn}>View Packages →</a>
+          </div>
+        </div>
+
+        <a href="#" style={{ color: "#1a1a1a", fontSize: 13, marginTop: 20, display: "inline-block", textAlign: "center", width: "100%" }}>← Back to home</a>
       </div></div>
     );
   }
@@ -64,7 +92,7 @@ export default function DonorPage() {
             <div style={s.fwCard}>
               <div style={s.fwEmoji}>🆘</div>
               <div style={s.fwRole}>Patient / Family</div>
-              <div style={s.fwBenefit}>Gets a confirmed donor in minutes, not hours. Pays ₹299 only after donor arrives. No donor = ₹0.</div>
+              <div style={s.fwBenefit}>Gets a confirmed donor in minutes, not hours. Pays ₹300+ only after donor arrives. No donor = ₹0.</div>
             </div>
             <div style={s.fwCard}>
               <div style={s.fwEmoji}>🩸</div>
@@ -78,47 +106,48 @@ export default function DonorPage() {
             </div>
           </div>
           <div style={s.fwLoop}>
-            <svg viewBox="0 0 500 320" fill="none" xmlns="http://www.w3.org/2000/svg" style={{width:"100%",maxWidth:400,height:"auto",margin:"0 auto",display:"block"}}>
+            <svg viewBox="0 0 500 360" fill="none" xmlns="http://www.w3.org/2000/svg" style={{width:"100%",maxWidth:440,height:"auto",margin:"0 auto",display:"block"}}>
               {/* Center */}
-              <circle cx="250" cy="160" r="40" fill="#f0fdf4" stroke="#16a34a" strokeWidth="2"/>
-              <text x="250" y="155" textAnchor="middle" fontSize="11" fontWeight="700" fill="#16a34a">self</text>
-              <text x="250" y="170" textAnchor="middle" fontSize="11" fontWeight="700" fill="#16a34a">sustaining</text>
+              <circle cx="250" cy="180" r="40" fill="#f0fdf4" stroke="#16a34a" strokeWidth="2"/>
+              <text x="250" y="175" textAnchor="middle" fontSize="11" fontWeight="700" fill="#16a34a">self</text>
+              <text x="250" y="190" textAnchor="middle" fontSize="11" fontWeight="700" fill="#16a34a">sustaining</text>
 
               {/* Circular arrows */}
-              <path d="M 250 60 A 100 100 0 0 1 350 160" fill="none" stroke="#e2e8f0" strokeWidth="2" markerEnd="url(#arrow)"/>
-              <path d="M 350 160 A 100 100 0 0 1 250 260" fill="none" stroke="#e2e8f0" strokeWidth="2" markerEnd="url(#arrow)"/>
-              <path d="M 250 260 A 100 100 0 0 1 150 160" fill="none" stroke="#e2e8f0" strokeWidth="2" markerEnd="url(#arrow)"/>
-              <path d="M 150 160 A 100 100 0 0 1 250 60" fill="none" stroke="#e2e8f0" strokeWidth="2" markerEnd="url(#arrow)"/>
+              <path d="M 250 80 A 100 100 0 0 1 350 180" fill="none" stroke="#e2e8f0" strokeWidth="2" markerEnd="url(#arrow)"/>
+              <path d="M 350 180 A 100 100 0 0 1 250 280" fill="none" stroke="#e2e8f0" strokeWidth="2" markerEnd="url(#arrow)"/>
+              <path d="M 250 280 A 100 100 0 0 1 150 180" fill="none" stroke="#e2e8f0" strokeWidth="2" markerEnd="url(#arrow)"/>
+              <path d="M 150 180 A 100 100 0 0 1 250 80" fill="none" stroke="#e2e8f0" strokeWidth="2" markerEnd="url(#arrow)"/>
               <defs><marker id="arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M 0 0 L 6 3 L 0 6 Z" fill="#94a3b8"/></marker></defs>
 
               {/* Nodes */}
               {/* Top */}
-              <rect x="185" y="15" width="130" height="36" rx="8" fill="#fff" stroke="#e2e8f0" strokeWidth="1.5"/>
-              <text x="250" y="38" textAnchor="middle" fontSize="11" fontWeight="600" fill="#1a1a1a">Family pays ₹299</text>
+              <rect x="185" y="25" width="130" height="36" rx="8" fill="#fff" stroke="#e2e8f0" strokeWidth="1.5"/>
+              <text x="250" y="48" textAnchor="middle" fontSize="11" fontWeight="600" fill="#1a1a1a">Family pays ₹300+</text>
 
               {/* Right top */}
-              <rect x="370" y="90" width="120" height="36" rx="8" fill="#fff" stroke="#e2e8f0" strokeWidth="1.5"/>
-              <text x="430" y="113" textAnchor="middle" fontSize="11" fontWeight="600" fill="#1a1a1a">Covers call costs</text>
+              <rect x="370" y="100" width="120" height="36" rx="8" fill="#fff" stroke="#e2e8f0" strokeWidth="1.5"/>
+              <text x="430" y="123" textAnchor="middle" fontSize="11" fontWeight="600" fill="#1a1a1a">Covers call costs</text>
 
               {/* Right bottom */}
-              <rect x="370" y="195" width="120" height="44" rx="8" fill="#fff" stroke="#e2e8f0" strokeWidth="1.5"/>
-              <text x="430" y="214" textAnchor="middle" fontSize="10" fontWeight="600" fill="#1a1a1a">Donors get free</text>
-              <text x="430" y="228" textAnchor="middle" fontSize="10" fontWeight="600" fill="#1a1a1a">health benefits</text>
+              <rect x="370" y="215" width="120" height="44" rx="8" fill="#fff" stroke="#bbf7d0" strokeWidth="1.5"/>
+              <text x="430" y="234" textAnchor="middle" fontSize="10" fontWeight="600" fill="#15803d">Diagnostic labs</text>
+              <text x="430" y="248" textAnchor="middle" fontSize="10" fontWeight="600" fill="#15803d">pay ₹150/referral</text>
 
               {/* Bottom */}
-              <rect x="180" y="270" width="140" height="36" rx="8" fill="#fff" stroke="#e2e8f0" strokeWidth="1.5"/>
-              <text x="250" y="293" textAnchor="middle" fontSize="11" fontWeight="600" fill="#1a1a1a">Donors stay engaged</text>
+              <rect x="170" y="295" width="160" height="44" rx="8" fill="#fff" stroke="#e2e8f0" strokeWidth="1.5"/>
+              <text x="250" y="314" textAnchor="middle" fontSize="10" fontWeight="600" fill="#1a1a1a">Donors get free checkups</text>
+              <text x="250" y="328" textAnchor="middle" fontSize="10" fontWeight="600" fill="#1a1a1a">→ stay engaged → donate again</text>
 
               {/* Left bottom */}
-              <rect x="10" y="195" width="120" height="44" rx="8" fill="#fff" stroke="#e2e8f0" strokeWidth="1.5"/>
-              <text x="70" y="214" textAnchor="middle" fontSize="10" fontWeight="600" fill="#1a1a1a">More donors</text>
-              <text x="70" y="228" textAnchor="middle" fontSize="10" fontWeight="600" fill="#1a1a1a">available</text>
+              <rect x="10" y="215" width="120" height="44" rx="8" fill="#fff" stroke="#e2e8f0" strokeWidth="1.5"/>
+              <text x="70" y="234" textAnchor="middle" fontSize="10" fontWeight="600" fill="#1a1a1a">More donors</text>
+              <text x="70" y="248" textAnchor="middle" fontSize="10" fontWeight="600" fill="#1a1a1a">available</text>
 
               {/* Left top */}
-              <rect x="10" y="90" width="120" height="36" rx="8" fill="#fff" stroke="#e2e8f0" strokeWidth="1.5"/>
-              <text x="70" y="113" textAnchor="middle" fontSize="11" fontWeight="600" fill="#1a1a1a">Faster matches</text>
+              <rect x="10" y="100" width="120" height="36" rx="8" fill="#fff" stroke="#e2e8f0" strokeWidth="1.5"/>
+              <text x="70" y="123" textAnchor="middle" fontSize="11" fontWeight="600" fill="#1a1a1a">Faster matches</text>
             </svg>
-            <p style={{textAlign:"center",fontSize:11,color:"#888",marginTop:8}}>Funded by diagnostic partners · No external funding needed after kickstart · Break-even at 4 activations/month</p>
+            <p style={{textAlign:"center",fontSize:11,color:"#888",marginTop:8}}>Funded by diagnostic lab referrals + activation fees · No external funding needed · Break-even at 4 activations/month</p>
           </div>
         </section>
 
@@ -164,6 +193,14 @@ export default function DonorPage() {
                   <tr><td style={s.td}>Full Body Checkup</td><td style={s.td}>₹3,500</td><td style={{...s.td, fontWeight:700}}>₹999</td><td style={s.td}>3+ donations/year</td></tr>
                 </tbody>
               </table>
+              <div style={s.affiliateCTAs}>
+                <a href="https://www.thyrocare.com/aarogyam?ref=praana_donor" target="_blank" rel="noopener" style={s.ctaLink}>
+                  🏥 Book via Thyrocare
+                </a>
+                <a href="https://redcliffelabs.com/packages?utm_source=praana&utm_medium=affiliate" target="_blank" rel="noopener" style={s.ctaLink}>
+                  🧪 Book via Redcliffe Labs
+                </a>
+              </div>
               <p style={s.fine}>Powered by partner diagnostic labs · Digital reports · No hidden costs</p>
             </section>
 
@@ -219,7 +256,7 @@ export default function DonorPage() {
                 </select>
                 <label style={s.optin}>
                   <input type="checkbox" name="health_checkup" value="yes" defaultChecked />
-                  <span>Send me health reports & checkup offers after donations</span>
+                  <span>Send me free health reports & lab offers on WhatsApp after I donate</span>
                 </label>
                 <button type="submit" style={s.btn}>Register as donor</button>
               </form>
@@ -291,6 +328,19 @@ const s = {
   promises: { display: "flex", justifyContent: "center", gap: 12, fontSize: 11, color: "#999", marginTop: 10, flexWrap: "wrap" },
 
   checkMark: { width: 52, height: 52, borderRadius: 26, background: "#ecfdf5", color: "#16a34a", fontSize: 26, lineHeight: "52px", margin: "0 auto 14px", fontWeight: 600 },
+
+  affiliateBanner: { background: "#fff", border: "2px solid #bbf7d0", borderRadius: 12, padding: "24px", marginBottom: 16, textAlign: "center" },
+  affiliateBadge: { display: "inline-block", background: "#16a34a", color: "#fff", fontSize: 11, fontWeight: 700, padding: "4px 10px", borderRadius: 4, marginBottom: 12 },
+  affiliateTitle: { fontSize: 18, fontWeight: 600, margin: "0 0 8px", color: "#1a1a1a" },
+  affiliateDesc: { fontSize: 13, color: "#555", margin: "0 0 16px", lineHeight: 1.6 },
+  affiliatePartners: { display: "flex", gap: 10, justifyContent: "center", flexWrap: "wrap" },
+  affiliateBtn: { padding: "12px 20px", background: "#16a34a", color: "#fff", borderRadius: 8, textDecoration: "none", fontSize: 13, fontWeight: 600 },
+  affiliateBtnAlt: { padding: "12px 20px", background: "#1a1a1a", color: "#fff", borderRadius: 8, textDecoration: "none", fontSize: 13, fontWeight: 600 },
+  affiliateFine: { fontSize: 11, color: "#999", marginTop: 12, marginBottom: 0 },
+  upgradeBanner: { background: "#fffbeb", border: "1px solid #fde68a", borderRadius: 10, padding: "16px 20px", marginBottom: 16 },
+  upgradeBtn: { padding: "10px 16px", background: "#f59e0b", color: "#fff", borderRadius: 6, textDecoration: "none", fontSize: 12, fontWeight: 600, whiteSpace: "nowrap" },
+  affiliateCTAs: { display: "flex", gap: 8, marginTop: 12, flexWrap: "wrap" },
+  ctaLink: { padding: "8px 14px", background: "#f0fdf4", border: "1px solid #bbf7d0", borderRadius: 6, textDecoration: "none", fontSize: 12, fontWeight: 500, color: "#15803d" },
 
   // Mobile override via media query isn't possible inline, but grid will stack naturally below 640px
   // The 320px column will overflow on very small screens — acceptable for hackathon demo
