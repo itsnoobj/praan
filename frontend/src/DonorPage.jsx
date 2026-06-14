@@ -39,7 +39,7 @@ export default function DonorPage() {
             <a href="https://www.thyrocare.com/aarogyam?ref=praana_donor" target="_blank" rel="noopener" style={s.affiliateBtn}>
               🏥 Book at Thyrocare — FREE
             </a>
-            <a href="https://redcliffelabs.com/packages?utm_source=praana&utm_medium=affiliate" target="_blank" rel="noopener" style={s.affiliateBtnAlt}>
+            <a href="https://redcliffelabs.com/health-checkup-packages?utm_source=praana&utm_medium=affiliate" target="_blank" rel="noopener" style={s.affiliateBtnAlt}>
               🧪 Book at Redcliffe Labs — FREE
             </a>
           </div>
@@ -197,7 +197,7 @@ export default function DonorPage() {
                 <a href="https://www.thyrocare.com/aarogyam?ref=praana_donor" target="_blank" rel="noopener" style={s.ctaLink}>
                   🏥 Book via Thyrocare
                 </a>
-                <a href="https://redcliffelabs.com/packages?utm_source=praana&utm_medium=affiliate" target="_blank" rel="noopener" style={s.ctaLink}>
+                <a href="https://redcliffelabs.com/health-checkup-packages?utm_source=praana&utm_medium=affiliate" target="_blank" rel="noopener" style={s.ctaLink}>
                   🧪 Book via Redcliffe Labs
                 </a>
               </div>
