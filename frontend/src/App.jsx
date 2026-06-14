@@ -120,13 +120,6 @@ export default function App() {
               </details>
             </form>
 
-            <details style={s.dataSource}>
-              <summary style={s.dataSourceTitle}>Where do we find donors?</summary>
-              <img src="/friends2support-screenshot.png" alt="Friends2Support" style={{width:"100%",borderRadius:8,border:"1px solid #eee",marginTop:10}} />
-              <p style={s.dataSourceNote}>
-                Real data from <a href="https://www.friends2support.org/inner/news/searchresult.aspx" target="_blank" rel="noopener" style={{color:"#1a1a1a",fontWeight:500}}>Friends2Support.org</a> — 3M+ voluntary donors across India. We pull by blood group, city & area via AI agent. More registries coming.
-              </p>
-            </details>
             <div style={s.donorCta}>
               <p style={s.donorCtaText}>Want to save a life someday?</p>
               <a href="#donor" style={s.donorBtn}>Become a donor</a>
@@ -134,7 +127,13 @@ export default function App() {
                 <a href="https://timesofindia.indiatimes.com/life-style/health-fitness/health-news/blood-donation-are-you-eligible-to-donate-blood-all-about-the-rules-of-blood-donation/articleshow/117388629.cms" target="_blank" rel="noopener" style={s.cite}>12,000 lives lost daily</a> · <a href="https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0265951" target="_blank" rel="noopener" style={s.cite}>14.6M units needed/year</a> · 1 donation saves 3 lives
               </p>
             </div>
-
+            <details style={s.dataSource}>
+              <summary style={s.dataSourceTitle}>Where do we find donors?</summary>
+              <img src="/friends2support-screenshot.png" alt="Friends2Support" style={{width:"100%",borderRadius:8,border:"1px solid #eee",marginTop:10}} />
+              <p style={s.dataSourceNote}>
+                Real data from <a href="https://www.friends2support.org/inner/news/searchresult.aspx" target="_blank" rel="noopener" style={{color:"#1a1a1a",fontWeight:500}}>Friends2Support.org</a> — 3M+ voluntary donors across India. We pull by blood group, city & area via AI agent. More registries coming.
+              </p>
+            </details>
             {/* How it works */}
             <div style={s.workflow}>
               <h3 style={s.wfTitle}>How praana works</h3>
@@ -240,22 +239,22 @@ function icon(t) {
 }
 
 const s = {
-  page: { minHeight: "100vh", background: "#fafafa", display: "flex", alignItems: "center", justifyContent: "center", padding: 20 },
-  container: { width: "100%", maxWidth: 780, fontFamily: "'Inter', -apple-system, system-ui, sans-serif", color: "#1a1a1a" },
+  page: { minHeight: "100vh", background: "#fafafa", display: "flex", alignItems: "flex-start", justifyContent: "center", padding: "80px 20px 40px" },
+  container: { width: "100%", maxWidth: 640, fontFamily: "'Inter', -apple-system, system-ui, sans-serif", color: "#1a1a1a" },
 
-  header: { textAlign: "center", marginBottom: 28 },
-  brand: { fontSize: 34, fontWeight: 700, margin: 0, color: "#1a1a1a", letterSpacing: "-1px" },
-  tagline: { fontSize: 14, color: "#888", marginTop: 6 },
+  header: { textAlign: "center", marginBottom: 32 },
+  brand: { fontSize: 42, fontWeight: 700, margin: 0, color: "#1a1a1a", letterSpacing: "-1px" },
+  tagline: { fontSize: 16, color: "#888", marginTop: 8 },
 
   stats: { display: "flex", justifyContent: "center", gap: 8, fontSize: 12, color: "#999", marginBottom: 24, flexWrap: "wrap" },
   statDot: { color: "#ddd" },
 
-  form: { display: "flex", flexDirection: "column", gap: 14 },
+  form: { display: "flex", flexDirection: "column", gap: 12 },
   field: { position: "relative" },
-  textarea: { width: "100%", padding: 18, paddingRight: 60, border: "1px solid #e0e0e0", borderRadius: 12, fontSize: 15, fontFamily: "inherit", resize: "none", boxSizing: "border-box", background: "#fff", color: "#1a1a1a", lineHeight: 1.6 },
+  textarea: { width: "100%", padding: 20, border: "1px solid #e0e0e0", borderRadius: 12, fontSize: 16, fontFamily: "inherit", resize: "none", boxSizing: "border-box", background: "#fff", color: "#1a1a1a", lineHeight: 1.6 },
   mic: { position: "absolute", right: 12, bottom: 12, padding: "8px 14px", borderRadius: 20, border: "none", cursor: "pointer", fontSize: 13, fontWeight: 500 },
-  input: { padding: 16, border: "1px solid #e0e0e0", borderRadius: 12, fontSize: 15, background: "#fff", color: "#1a1a1a", boxSizing: "border-box" },
-  btn: { padding: 16, background: "#1a1a1a", color: "#fff", border: "none", borderRadius: 12, fontSize: 15, fontWeight: 600, cursor: "pointer" },
+  input: { padding: 18, border: "1px solid #e0e0e0", borderRadius: 12, fontSize: 16, background: "#fff", color: "#1a1a1a", boxSizing: "border-box" },
+  btn: { padding: 18, background: "#1a1a1a", color: "#fff", border: "none", borderRadius: 12, fontSize: 17, fontWeight: 600, cursor: "pointer" },
   trust: { textAlign: "center", fontSize: 12, color: "#999", margin: 0 },
   demoBox: { marginTop: 12, background: "#fffbeb", border: "1px solid #fde68a", borderRadius: 8, padding: "8px 12px" },
   demoSummary: { fontSize: 12, color: "#92400e", cursor: "pointer" },

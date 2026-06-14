@@ -36,7 +36,7 @@ export default function DonorPage() {
           <h3 style={s.affiliateTitle}>Your FREE health checkup is ready</h3>
           <p style={s.affiliateDesc}>As a registered praana donor, get a complimentary Basic Health Screening (Hb, BP, Blood Group Confirmation) at our partner labs.</p>
           <div style={s.affiliatePartners}>
-            <a href="https://www.thyrocare.com/aarogyam?ref=praana_donor" target="_blank" rel="noopener" style={s.affiliateBtn}>
+            <a href="https://redcliffelabs.com/health-checkup-packages?utm_source=praana" target="_blank" rel="noopener" style={s.affiliateBtn}>
               🏥 Book at Thyrocare — FREE
             </a>
             <a href="https://redcliffelabs.com/health-checkup-packages?utm_source=praana&utm_medium=affiliate" target="_blank" rel="noopener" style={s.affiliateBtnAlt}>
@@ -53,7 +53,7 @@ export default function DonorPage() {
               <strong style={{ fontSize: 14 }}>Want a Full Body Checkup at ₹999 (MRP ₹3,500)?</strong>
               <p style={{ fontSize: 12, color: "#666", margin: "4px 0 0" }}>Donate 3+ times this year to unlock. Includes 70+ tests.</p>
             </div>
-            <a href="https://www.thyrocare.com/aarogyam/full-body?ref=praana_donor_premium" target="_blank" rel="noopener" style={s.upgradeBtn}>View Packages →</a>
+            <a href="https://redcliffelabs.com/health-checkup-packages?utm_source=praana" target="_blank" rel="noopener" style={s.upgradeBtn}>View Packages →</a>
           </div>
         </div>
 
@@ -103,7 +103,7 @@ export default function DonorPage() {
                 </tbody>
               </table>
               <div style={s.affiliateCTAs}>
-                <a href="https://www.thyrocare.com/aarogyam?ref=praana_donor" target="_blank" rel="noopener" style={s.ctaLink}>
+                <a href="https://redcliffelabs.com/health-checkup-packages?utm_source=praana" target="_blank" rel="noopener" style={s.ctaLink}>
                   🏥 Book via Thyrocare
                 </a>
                 <a href="https://redcliffelabs.com/health-checkup-packages?utm_source=praana&utm_medium=affiliate" target="_blank" rel="noopener" style={s.ctaLink}>

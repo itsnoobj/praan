@@ -13,7 +13,8 @@ const PORT = process.env.PORT || 3001;
 // --- In-memory state ---
 const requests = new Map();
 const sseClients = new Map();
-const rateLimits = new Map(); // phone -> { count, resetAt }
+const rateLimits = new Map();
+const scheduledFollowups = []; // track follow-up calls // phone -> { count, resetAt }
 
 // --- Rate limiting ---
 function checkRateLimit(phone) {
@@ -326,8 +327,21 @@ app.post("/api/webhooks/ringg", (req, res) => {
       // Schedule follow-up call in 20 min to confirm donor is on the way
       const etaMs = (parseInt(eta) || 30) * 60 * 1000;
       const followUpDelay = Math.max(etaMs - 10 * 60 * 1000, 60000); // 10 min before ETA, min 1 min
+      const followUpTime = new Date(Date.now() + followUpDelay);
+      scheduledFollowups.push({
+        donor_name: event.custom_args_values?.callee_name,
+        donor_phone: maskPhone(event.to_number),
+        request_id: requestId,
+        hospital: request.extracted?.hospital,
+        eta: eta,
+        scheduled_for: followUpTime.toISOString(),
+        context: `You confirmed ${eta} min ago. Checking if you're on your way to ${request.extracted?.hospital || "the hospital"}.`,
+        status: "pending",
+      });
       setTimeout(() => {
         triggerFollowUpCall(event.to_number, event.custom_args_values?.callee_name, requestId, request.extracted);
+        const f = scheduledFollowups.find(f => f.request_id === requestId && f.status === "pending");
+        if (f) f.status = "fired";
       }, followUpDelay);
     } else {
       emit(requestId, "donor_unavailable", { message: `Donor unavailable: ${summary || classification}` });
@@ -587,6 +601,17 @@ app.post("/api/reminders/process", async (req, res) => {
   }
 
   res.json({ processed: sent });
+});
+
+// --- View scheduled follow-ups ---
+app.get("/api/followups", (req, res) => {
+  res.json(scheduledFollowups);
+});
+
+// --- View scheduled reminders ---
+app.get("/api/reminders", async (req, res) => {
+  const all = await db.getDueReminders();
+  res.json(all || []);
 });
 
 // --- Donor history ---
