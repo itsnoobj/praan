@@ -155,6 +155,30 @@ export default function DonorPage() {
         <div style={s.grid}>
           {/* Left: Why + Impact */}
           <div style={s.left}>
+            {/* Health Benefits */}
+            <section style={s.card}>
+              <h3 style={s.cardTitle}>Free health benefits for donors</h3>
+              <table style={s.table}>
+                <thead>
+                  <tr><th style={s.th}>Package</th><th style={s.th}>MRP</th><th style={s.th}>Donor Price</th><th style={s.th}>Eligibility</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td style={s.td}>Basic (Hb, BP, screening)</td><td style={s.td}>₹500</td><td style={{...s.td, fontWeight:700, color:"#16a34a"}}>FREE</td><td style={s.td}>Every donation</td></tr>
+                  <tr><td style={s.td}>CBC + Lipid Profile</td><td style={s.td}>₹1,200</td><td style={{...s.td, fontWeight:700}}>₹299</td><td style={s.td}>2+ donations</td></tr>
+                  <tr><td style={s.td}>Full Body Checkup</td><td style={s.td}>₹3,500</td><td style={{...s.td, fontWeight:700}}>₹999</td><td style={s.td}>3+ donations/year</td></tr>
+                </tbody>
+              </table>
+              <div style={s.affiliateCTAs}>
+                <a href="https://www.thyrocare.com/aarogyam?ref=praana_donor" target="_blank" rel="noopener" style={s.ctaLink}>
+                  🏥 Book via Thyrocare
+                </a>
+                <a href="https://redcliffelabs.com/health-checkup-packages?utm_source=praana&utm_medium=affiliate" target="_blank" rel="noopener" style={s.ctaLink}>
+                  🧪 Book via Redcliffe Labs
+                </a>
+              </div>
+              <p style={s.fine}>Powered by partner diagnostic labs · Digital reports · No hidden costs</p>
+            </section>
+
             {/* Impact Memory */}
             <section style={s.card}>
               <h3 style={s.cardTitle}>We remember every donation</h3>
@@ -178,30 +202,6 @@ export default function DonorPage() {
                 When we call you again, the agent says:<br />
                 <em>"You saved a child's life 90 days ago at Fortis. There's another emergency today — can you help again?"</em>
               </p>
-            </section>
-
-            {/* Health Benefits */}
-            <section style={s.card}>
-              <h3 style={s.cardTitle}>Free health benefits for donors</h3>
-              <table style={s.table}>
-                <thead>
-                  <tr><th style={s.th}>Package</th><th style={s.th}>MRP</th><th style={s.th}>Donor Price</th><th style={s.th}>Eligibility</th></tr>
-                </thead>
-                <tbody>
-                  <tr><td style={s.td}>Basic (Hb, BP, screening)</td><td style={s.td}>₹500</td><td style={{...s.td, fontWeight:700, color:"#16a34a"}}>FREE</td><td style={s.td}>Every donation</td></tr>
-                  <tr><td style={s.td}>CBC + Lipid Profile</td><td style={s.td}>₹1,200</td><td style={{...s.td, fontWeight:700}}>₹299</td><td style={s.td}>2+ donations</td></tr>
-                  <tr><td style={s.td}>Full Body Checkup</td><td style={s.td}>₹3,500</td><td style={{...s.td, fontWeight:700}}>₹999</td><td style={s.td}>3+ donations/year</td></tr>
-                </tbody>
-              </table>
-              <div style={s.affiliateCTAs}>
-                <a href="https://www.thyrocare.com/aarogyam?ref=praana_donor" target="_blank" rel="noopener" style={s.ctaLink}>
-                  🏥 Book via Thyrocare
-                </a>
-                <a href="https://redcliffelabs.com/health-checkup-packages?utm_source=praana&utm_medium=affiliate" target="_blank" rel="noopener" style={s.ctaLink}>
-                  🧪 Book via Redcliffe Labs
-                </a>
-              </div>
-              <p style={s.fine}>Powered by partner diagnostic labs · Digital reports · No hidden costs</p>
             </section>
 
             {/* Transparent Financials */}
