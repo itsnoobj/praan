@@ -159,7 +159,7 @@ export default function App() {
                   <span style={s.icon}>{icon(ev.type)}</span>
                   {ev.message || ev.type}
                   {ev.type === "donors_found" && ev.donors && (
-                    <div style={s.donorList}>{ev.donors.map((d,j) => <span key={j} style={s.donorTag}>{d.name}</span>)}</div>
+                    <div style={s.donorList}>{ev.donors.map((d,j) => <span key={j} style={s.donorTag}>{d.name.split(" ")[0]}</span>)}</div>
                   )}
                 </div>
               ))}

@@ -329,7 +329,7 @@ async function sendTelegramNotification(request, donor) {
   const requesterPhone = request.phone?.replace(/[^0-9]/g, "");
 
   // Message to donor (WhatsApp via Twilio)
-  const donorMsg = `🩸 praana — Thank you for confirming!\n\nHospital: ${request.extracted?.hospital || "Nearby hospital"}\nBlood Group needed: ${request.extracted?.blood_group}\n\nRequester contact:\n📞 ${request.phone}\n💬 https://wa.me/${requesterPhone}\n\nPlease reach the blood bank reception.`;
+  const donorMsg = `🩸 praana — Thank you for saying yes.\n\nSomeone's life depends on you reaching the hospital. Every minute matters.\n\n🏥 ${request.extracted?.hospital || "Nearby hospital"}\n🅰️ Blood Group: ${request.extracted?.blood_group}\n\n📞 Requester: ${request.phone}\n💬 WhatsApp: https://wa.me/${requesterPhone}\n\nPlease head there now. You're about to do something extraordinary — a stranger will live because you showed up.\n\n🙏 Thank you, hero.`;
 
   // Send WhatsApp to donor (works independently of Telegram)
   const donorPhone = donor.phone?.includes("****") ? null : donor.phone; // can't send to masked number
@@ -364,7 +364,7 @@ async function sendTelegramNotification(request, donor) {
   }
 
   // Also send requester notification via WhatsApp
-  const requesterWAMsg = `🩸 praana — Donor Confirmed!\n\nDonor: ${donor.name}\nETA: ${donor.eta} minutes\nHospital: ${request.extracted?.hospital || "Nearby hospital"}\n\nPlease be at the blood bank reception to receive the donor.`;
+  const requesterWAMsg = `🩸 praana — Donor confirmed!\n\n✅ A donor is heading to ${request.extracted?.hospital || "the hospital"} now.\n⏱️ ETA: ~${donor.eta} minutes\n\nPlease be at the blood bank reception to receive them.\n\nHang in there — help is on the way. 🙏`;
   await sendWhatsApp(`whatsapp:+91${requesterPhone}`, requesterWAMsg).catch(() => {});
 
   emit(request.id, "notification_sent", { message: `📲 WhatsApp sent to donor + requester.` });
