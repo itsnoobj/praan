@@ -85,7 +85,7 @@ export default function App() {
                 <textarea
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
-                  placeholder={"e.g. Need 2 units O+ blood at Fortis Bannerghatta, father in surgery after accident\n\nThe more details you share (reason, units needed, hospital), the faster donors respond."}
+                  placeholder={"e.g. Need 2 units O+ blood at Fortis Bannerghatta, friend in surgery after accident\n\nThe more details you share (reason, units needed, hospital), the faster donors respond."}
                   rows={5}
                   style={s.textarea}
                 />
@@ -113,7 +113,6 @@ export default function App() {
                 Real data from <a href="https://www.friends2support.org/inner/news/searchresult.aspx" target="_blank" rel="noopener" style={{color:"#1a1a1a",fontWeight:500}}>Friends2Support.org</a> — 3M+ voluntary donors across India. We pull by blood group, city & area via AI agent. More registries coming.
               </p>
             </details>
-
             {/* How it works */}
             <div style={s.workflow}>
               <h3 style={s.wfTitle}>How praana works</h3>
@@ -143,6 +142,9 @@ export default function App() {
                   <a href="https://timesofindia.indiatimes.com/life-style/health-fitness/health-news/blood-donation-are-you-eligible-to-donate-blood-all-about-the-rules-of-blood-donation/articleshow/117388629.cms" target="_blank" rel="noopener" style={s.cite}>12,000 lives lost daily</a> · <a href="https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0265951" target="_blank" rel="noopener" style={s.cite}>14.6M units needed/year</a> · 1 donation saves 3 lives
                 </p>
               </div>
+              <p style={s.ghFooter}>
+                Open source · <a href="https://github.com/itsnoobj/praan" target="_blank" rel="noopener" style={s.ghFooterLink}>GitHub</a> · Built with <a href="https://www.ringg.ai" target="_blank" rel="noopener" style={s.ghFooterLink}>Ringg AI</a> · Voice-AI blood donor activation for India
+              </p>
             </footer>
           </>
         )}
@@ -252,6 +254,8 @@ const s = {
   donorBtn: { display: "inline-block", padding: "12px 28px", background: "#1a1a1a", color: "#fff", borderRadius: 8, fontSize: 14, fontWeight: 600, textDecoration: "none" },
   donorStats: { fontSize: 11, color: "#999", marginTop: 12, marginBottom: 0, lineHeight: 1.6 },
   cite: { color: "#666", textDecoration: "underline" },
+  ghFooter: { textAlign: "center", fontSize: 11, color: "#aaa", marginTop: 16, marginBottom: 0 },
+  ghFooterLink: { color: "#888", textDecoration: "underline" },
   link: { color: "#555", fontSize: 13, textDecoration: "none", borderBottom: "1px solid #ddd" },
   waiting: { display: "flex", alignItems: "center", gap: 10, marginTop: 12, padding: "10px 14px", background: "#f0f9ff", borderRadius: 8, fontSize: 13, color: "#0369a1" },
   pulse: { width: 10, height: 10, borderRadius: 5, background: "#0ea5e9", animation: "pulse 1.5s infinite" },

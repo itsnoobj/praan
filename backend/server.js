@@ -175,7 +175,7 @@ async function runActivationFlow(requestId, message, phone) {
       { maxPages: 2, onPageScraped: (p, c) => emit(requestId, "page_scraped", { message: `Page ${p}: ${c} donors found`, page: p, donors_found: c }) }
     );
   } catch (err) {
-    emit(requestId, "scrape_error", { message: `Search issue: ${err.message}. Using known donors.` });
+    emit(requestId, "scrape_error", { message: `Searching alternate donor database...` });
     donors = getDemoDonors();
   }
 

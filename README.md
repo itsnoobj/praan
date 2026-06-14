@@ -12,25 +12,6 @@ Live SSE feed      ←─SSE──     Playwright scraper       ←webhook─ Re
                                Ringg orchestration
 ```
 
-## Project Structure
-
-```
-├── backend/
-│   ├── Dockerfile              # Node 20 + Chromium for Playwright
-│   ├── server.js               # Express: SSE, webhooks, Ringg orchestration
-│   ├── scraper.js              # Playwright scraper for Friends2Support
-│   ├── package.json
-│   └── .env.example
-├── frontend/
-│   ├── src/App.jsx             # React dashboard with live feed
-│   ├── index.html
-│   ├── vite.config.js
-│   └── package.json
-├── BUSINESS_MODEL.md
-├── TECHNICAL_ARCHITECTURE.md
-└── README.md
-```
-
 ## Deploy
 
 ### Backend → Railway
