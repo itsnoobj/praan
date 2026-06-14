@@ -85,72 +85,6 @@ export default function DonorPage() {
           </div>
         </section>
 
-        {/* How Everyone Benefits — Flywheel */}
-        <section style={s.flywheel}>
-          <h3 style={s.fwTitle}>How it works — everyone benefits</h3>
-          <div style={s.fwGrid}>
-            <div style={s.fwCard}>
-              <div style={s.fwEmoji}>🆘</div>
-              <div style={s.fwRole}>Patient / Family</div>
-              <div style={s.fwBenefit}>Gets a confirmed donor in minutes, not hours. Pays ₹300+ only after donor arrives. No donor = ₹0.</div>
-            </div>
-            <div style={s.fwCard}>
-              <div style={s.fwEmoji}>🩸</div>
-              <div style={s.fwRole}>Donor (you)</div>
-              <div style={s.fwBenefit}>Save a life with 30 min of your time. Get free health reports, subsidized checkups, and impact stories. Called only in emergencies, in your language.</div>
-            </div>
-            <div style={s.fwCard}>
-              <div style={s.fwEmoji}>🏥</div>
-              <div style={s.fwRole}>Diagnostic Labs</div>
-              <div style={s.fwBenefit}>Get health-conscious walk-ins (donors) at zero acquisition cost. Pay praana ₹150/referral. Donors get subsidized checkups. Win-win.</div>
-            </div>
-          </div>
-          <div style={s.fwLoop}>
-            <svg viewBox="0 0 500 360" fill="none" xmlns="http://www.w3.org/2000/svg" style={{width:"100%",maxWidth:440,height:"auto",margin:"0 auto",display:"block"}}>
-              {/* Center */}
-              <circle cx="250" cy="180" r="40" fill="#f0fdf4" stroke="#16a34a" strokeWidth="2"/>
-              <text x="250" y="175" textAnchor="middle" fontSize="11" fontWeight="700" fill="#16a34a">self</text>
-              <text x="250" y="190" textAnchor="middle" fontSize="11" fontWeight="700" fill="#16a34a">sustaining</text>
-
-              {/* Circular arrows */}
-              <path d="M 250 80 A 100 100 0 0 1 350 180" fill="none" stroke="#e2e8f0" strokeWidth="2" markerEnd="url(#arrow)"/>
-              <path d="M 350 180 A 100 100 0 0 1 250 280" fill="none" stroke="#e2e8f0" strokeWidth="2" markerEnd="url(#arrow)"/>
-              <path d="M 250 280 A 100 100 0 0 1 150 180" fill="none" stroke="#e2e8f0" strokeWidth="2" markerEnd="url(#arrow)"/>
-              <path d="M 150 180 A 100 100 0 0 1 250 80" fill="none" stroke="#e2e8f0" strokeWidth="2" markerEnd="url(#arrow)"/>
-              <defs><marker id="arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M 0 0 L 6 3 L 0 6 Z" fill="#94a3b8"/></marker></defs>
-
-              {/* Nodes */}
-              {/* Top */}
-              <rect x="185" y="25" width="130" height="36" rx="8" fill="#fff" stroke="#e2e8f0" strokeWidth="1.5"/>
-              <text x="250" y="48" textAnchor="middle" fontSize="11" fontWeight="600" fill="#1a1a1a">Family pays ₹300+</text>
-
-              {/* Right top */}
-              <rect x="370" y="100" width="120" height="36" rx="8" fill="#fff" stroke="#e2e8f0" strokeWidth="1.5"/>
-              <text x="430" y="123" textAnchor="middle" fontSize="11" fontWeight="600" fill="#1a1a1a">Covers call costs</text>
-
-              {/* Right bottom */}
-              <rect x="370" y="215" width="120" height="44" rx="8" fill="#fff" stroke="#bbf7d0" strokeWidth="1.5"/>
-              <text x="430" y="234" textAnchor="middle" fontSize="10" fontWeight="600" fill="#15803d">Diagnostic labs</text>
-              <text x="430" y="248" textAnchor="middle" fontSize="10" fontWeight="600" fill="#15803d">pay ₹150/referral</text>
-
-              {/* Bottom */}
-              <rect x="170" y="295" width="160" height="44" rx="8" fill="#fff" stroke="#e2e8f0" strokeWidth="1.5"/>
-              <text x="250" y="314" textAnchor="middle" fontSize="10" fontWeight="600" fill="#1a1a1a">Donors get free checkups</text>
-              <text x="250" y="328" textAnchor="middle" fontSize="10" fontWeight="600" fill="#1a1a1a">→ stay engaged → donate again</text>
-
-              {/* Left bottom */}
-              <rect x="10" y="215" width="120" height="44" rx="8" fill="#fff" stroke="#e2e8f0" strokeWidth="1.5"/>
-              <text x="70" y="234" textAnchor="middle" fontSize="10" fontWeight="600" fill="#1a1a1a">More donors</text>
-              <text x="70" y="248" textAnchor="middle" fontSize="10" fontWeight="600" fill="#1a1a1a">available</text>
-
-              {/* Left top */}
-              <rect x="10" y="100" width="120" height="36" rx="8" fill="#fff" stroke="#e2e8f0" strokeWidth="1.5"/>
-              <text x="70" y="123" textAnchor="middle" fontSize="11" fontWeight="600" fill="#1a1a1a">Faster matches</text>
-            </svg>
-            <p style={{textAlign:"center",fontSize:11,color:"#888",marginTop:8}}>Funded by diagnostic lab referrals + activation fees · No external funding needed · Break-even at 4 activations/month</p>
-          </div>
-        </section>
-
         {/* Two-column layout for desktop */}
         <div style={s.grid}>
           {/* Left: Why + Impact */}
@@ -219,7 +153,7 @@ export default function DonorPage() {
                   <tr><th style={s.th}>Running Cost</th><th style={s.th}>Monthly</th><th style={s.th}>Covered By</th></tr>
                 </thead>
                 <tbody>
-                  <tr><td style={s.td}>Voice calls (Ringg AI)</td><td style={s.td}>~₹33/activation</td><td style={s.td}>₹299 activation fee</td></tr>
+                  <tr><td style={s.td}>Voice calls (Ringg AI)</td><td style={s.td}>~₹15–35/call</td><td style={s.td}>₹300+ activation fee</td></tr>
                   <tr><td style={s.td}>Server + DB</td><td style={s.td}>~₹500/mo</td><td style={s.td}>4 activations cover it</td></tr>
                   <tr><td style={s.td}>WhatsApp/SMS</td><td style={s.td}>~₹1/msg</td><td style={s.td}>Activation fee</td></tr>
                   <tr><td style={s.td}>Health checkups for donors</td><td style={s.td}>₹0 to us</td><td style={s.td}>Lab pays us ₹150/referral</td></tr>
@@ -268,6 +202,72 @@ export default function DonorPage() {
             </section>
           </div>
         </div>
+
+        {/* How Everyone Benefits — Flywheel */}
+        <section style={s.flywheel}>
+          <h3 style={s.fwTitle}>How it works — everyone benefits</h3>
+          <div style={s.fwGrid}>
+            <div style={s.fwCard}>
+              <div style={s.fwEmoji}>🆘</div>
+              <div style={s.fwRole}>Patient / Family</div>
+              <div style={s.fwBenefit}>Gets a confirmed donor in minutes, not hours. Pays ₹300+ only after donor arrives. No donor = ₹0.</div>
+            </div>
+            <div style={s.fwCard}>
+              <div style={s.fwEmoji}>🩸</div>
+              <div style={s.fwRole}>Donor (you)</div>
+              <div style={s.fwBenefit}>Save a life with 30 min of your time. Get free health reports, subsidized checkups, and impact stories. Called only in emergencies, in your language.</div>
+            </div>
+            <div style={s.fwCard}>
+              <div style={s.fwEmoji}>🏥</div>
+              <div style={s.fwRole}>Diagnostic Labs</div>
+              <div style={s.fwBenefit}>Get health-conscious walk-ins (donors) at zero acquisition cost. Pay praana ₹150/referral. Donors get subsidized checkups. Win-win.</div>
+            </div>
+          </div>
+          <div style={s.fwLoop}>
+            <svg viewBox="0 0 500 360" fill="none" xmlns="http://www.w3.org/2000/svg" style={{width:"100%",maxWidth:440,height:"auto",margin:"0 auto",display:"block"}}>
+              {/* Center */}
+              <circle cx="250" cy="180" r="40" fill="#f0fdf4" stroke="#16a34a" strokeWidth="2"/>
+              <text x="250" y="175" textAnchor="middle" fontSize="11" fontWeight="700" fill="#16a34a">self</text>
+              <text x="250" y="190" textAnchor="middle" fontSize="11" fontWeight="700" fill="#16a34a">sustaining</text>
+
+              {/* Circular arrows */}
+              <path d="M 250 80 A 100 100 0 0 1 350 180" fill="none" stroke="#e2e8f0" strokeWidth="2" markerEnd="url(#arrow)"/>
+              <path d="M 350 180 A 100 100 0 0 1 250 280" fill="none" stroke="#e2e8f0" strokeWidth="2" markerEnd="url(#arrow)"/>
+              <path d="M 250 280 A 100 100 0 0 1 150 180" fill="none" stroke="#e2e8f0" strokeWidth="2" markerEnd="url(#arrow)"/>
+              <path d="M 150 180 A 100 100 0 0 1 250 80" fill="none" stroke="#e2e8f0" strokeWidth="2" markerEnd="url(#arrow)"/>
+              <defs><marker id="arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M 0 0 L 6 3 L 0 6 Z" fill="#94a3b8"/></marker></defs>
+
+              {/* Nodes */}
+              {/* Top */}
+              <rect x="185" y="25" width="130" height="36" rx="8" fill="#fff" stroke="#e2e8f0" strokeWidth="1.5"/>
+              <text x="250" y="48" textAnchor="middle" fontSize="11" fontWeight="600" fill="#1a1a1a">Family pays ₹300+</text>
+
+              {/* Right top */}
+              <rect x="370" y="100" width="120" height="36" rx="8" fill="#fff" stroke="#e2e8f0" strokeWidth="1.5"/>
+              <text x="430" y="123" textAnchor="middle" fontSize="11" fontWeight="600" fill="#1a1a1a">Covers call costs</text>
+
+              {/* Right bottom */}
+              <rect x="370" y="215" width="120" height="44" rx="8" fill="#fff" stroke="#bbf7d0" strokeWidth="1.5"/>
+              <text x="430" y="234" textAnchor="middle" fontSize="10" fontWeight="600" fill="#15803d">Diagnostic labs</text>
+              <text x="430" y="248" textAnchor="middle" fontSize="10" fontWeight="600" fill="#15803d">pay ₹150/referral</text>
+
+              {/* Bottom */}
+              <rect x="170" y="295" width="160" height="44" rx="8" fill="#fff" stroke="#e2e8f0" strokeWidth="1.5"/>
+              <text x="250" y="314" textAnchor="middle" fontSize="10" fontWeight="600" fill="#1a1a1a">Donors get free checkups</text>
+              <text x="250" y="328" textAnchor="middle" fontSize="10" fontWeight="600" fill="#1a1a1a">→ stay engaged → donate again</text>
+
+              {/* Left bottom */}
+              <rect x="10" y="215" width="120" height="44" rx="8" fill="#fff" stroke="#e2e8f0" strokeWidth="1.5"/>
+              <text x="70" y="234" textAnchor="middle" fontSize="10" fontWeight="600" fill="#1a1a1a">More donors</text>
+              <text x="70" y="248" textAnchor="middle" fontSize="10" fontWeight="600" fill="#1a1a1a">available</text>
+
+              {/* Left top */}
+              <rect x="10" y="100" width="120" height="36" rx="8" fill="#fff" stroke="#e2e8f0" strokeWidth="1.5"/>
+              <text x="70" y="123" textAnchor="middle" fontSize="11" fontWeight="600" fill="#1a1a1a">Faster matches</text>
+            </svg>
+            <p style={{textAlign:"center",fontSize:11,color:"#888",marginTop:8}}>Funded by diagnostic lab referrals + activation fees · No external funding needed · Break-even at 4 activations/month</p>
+          </div>
+        </section>
       </div>
     </div>
   );
