@@ -126,18 +126,6 @@ export default function DonorPage() {
         <div style={s.grid}>
           {/* Left: Why + Impact */}
           <div style={s.left}>
-            {/* Data Source */}
-            <section style={s.card}>
-              <h3 style={s.cardTitle}>Where we find donors — real data, real numbers</h3>
-              <p style={{fontSize:13,color:"#555",marginBottom:12,lineHeight:1.6}}>
-                We pull donor data from <a href="https://www.friends2support.org/inner/news/searchresult.aspx" target="_blank" rel="noopener" style={{color:"#1a1a1a",fontWeight:600}}>Friends2Support.org</a> — India's largest voluntary donor registry with <strong>3M+ registered donors</strong>. Our agent scrapes by blood group, state, district, and city. These are real people who opted in to be contacted for donation.
-              </p>
-              <img src="/friends2support-screenshot.png" alt="Friends2Support donor search showing real results" style={{width:"100%",borderRadius:8,border:"1px solid #eee"}} />
-              <p style={{fontSize:11,color:"#999",marginTop:8}}>
-                Screenshot: O+ donors in JP Nagar, Bangalore — 12 pages of results. Phone numbers masked for privacy. More registries can be integrated (eRaktKosh, Sankalp, hospital blood banks).
-              </p>
-            </section>
-
             {/* Impact Memory */}
             <section style={s.card}>
               <h3 style={s.cardTitle}>We remember every donation</h3>

@@ -187,19 +187,20 @@ async function runActivationFlow(requestId, message, phone) {
     return;
   }
 
-  // Step 3: Filter + call
-  const safeDonors = filterToSafeNumbers(donors);
-  const callTarget = safeDonors.length > 0 ? safeDonors[0] : { name: "Jeevan D C", mobile: SAFE_NUMBERS[0] };
-  const maskedName = callTarget.name.split(" ")[0] + " " + (callTarget.name.split(" ")[1]?.[0] || "") + ".";
+  // Step 3: Filter + call all safe donors
+  let callTargets = filterToSafeNumbers(donors);
+  if (callTargets.length === 0) callTargets = SAFE_NUMBERS.map(n => ({ name: "Donor", mobile: n }));
 
-  emit(requestId, "calling", { message: `Calling a matching donor...`, donor: { name: maskedName } });
+  emit(requestId, "calling", { message: `Calling ${callTargets.length} matching donor(s)...` });
   request.status = "calling";
 
-  try {
-    const result = await triggerRinggCall(callTarget, requestId, extracted);
-    emit(requestId, "call_initiated", { message: `Voice agent speaking with donor...`, call_id: result.call_id });
-  } catch (err) {
-    emit(requestId, "call_error", { message: `Call failed: ${err.message}` });
+  for (const target of callTargets) {
+    try {
+      const result = await triggerRinggCall(target, requestId, extracted);
+      emit(requestId, "call_initiated", { message: `Voice agent speaking with ${target.name.split(" ")[0]}...`, call_id: result.call_id });
+    } catch (err) {
+      emit(requestId, "call_error", { message: `Call to ${target.name.split(" ")[0]} failed: ${err.message}` });
+    }
   }
 }
 
@@ -367,7 +368,7 @@ async function sendTelegramNotification(request, donor) {
   const requesterWAMsg = `🩸 praana — Donor confirmed!\n\n✅ A donor is heading to ${request.extracted?.hospital || "the hospital"} now.\n⏱️ ETA: ~${donor.eta} minutes\n\nPlease be at the blood bank reception to receive them.\n\nHang in there — help is on the way. 🙏`;
   await sendWhatsApp(`whatsapp:+91${requesterPhone}`, requesterWAMsg).catch(() => {});
 
-  emit(request.id, "notification_sent", { message: `📲 WhatsApp sent to donor + requester.` });
+  emit(request.id, "notification_sent", { message: `📲 Hospital details + requester contact sent to donor via WhatsApp.` });
 }
 
 // --- WhatsApp via Twilio ---
@@ -409,16 +410,22 @@ function maskPhone(phone) {
 }
 
 function getDemoDonors() {
+  // If someone registered via demo box, use them instead
+  const registered = [...donors.values()];
+  if (registered.length > 0) {
+    return registered.map(d => ({ name: d.name, mobile: d.phone.replace("+91", "").replace(/\D/g, ""), availability: "Available" }));
+  }
   return [
     { name: "Jeevan D C", mobile: "7259702969", availability: "Available" },
-    { name: "Demo Donor 2", mobile: "9876543210", availability: "Available" },
-    { name: "Demo Donor 3", mobile: "9988776655", availability: "Available" },
   ];
 }
 
 const SAFE_NUMBERS = (process.env.SAFE_NUMBERS || "7259702969").split(",");
-function filterToSafeNumbers(donors) {
-  return donors.filter((d) => SAFE_NUMBERS.includes(d.mobile));
+function filterToSafeNumbers(allDonors) {
+  // Include both env-configured safe numbers AND registered donors
+  const registeredPhones = [...donors.keys()].map(p => p.replace("+91", ""));
+  const allowed = new Set([...SAFE_NUMBERS, ...registeredPhones]);
+  return allDonors.filter((d) => allowed.has(d.mobile));
 }
 
 // --- Donor Registry (in-memory for demo, DB in production) ---

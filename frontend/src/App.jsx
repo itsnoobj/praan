@@ -104,6 +104,20 @@ export default function App() {
               </button>
 
               <p style={s.trust}>No signup · Pay ₹299 only if donor arrives · No donor = ₹0</p>
+
+              <details style={s.demoBox}>
+                <summary style={s.demoSummary}>📞 Try it: hear what donors hear when you call</summary>
+                <p style={{fontSize:11,color:"#92400e",margin:"8px 0 6px"}}>Add your number below. On the next request, our AI voice agent will call YOU — so you can experience exactly what a donor hears.</p>
+                <div style={s.demoFields}>
+                  <input id="demo-name" placeholder="Your name" style={s.demoInput} />
+                  <input id="demo-phone" placeholder="Phone (10 digits)" style={s.demoInput} />
+                  <button type="button" style={s.demoBtn} onClick={() => {
+                    const n = document.getElementById("demo-name").value;
+                    const p = document.getElementById("demo-phone").value;
+                    if (n && p) { fetch(`${API_URL}/api/donors/register`, { method:"POST", headers:{"Content-Type":"application/json"}, body: JSON.stringify({name:n,phone:p,blood_group:"O+",city:"Bangalore",language:"en-IN",emergency_override:true}) }).then(()=>alert("Done! Submit a request above and you'll get the call.")); }
+                  }}>Add my number</button>
+                </div>
+              </details>
             </form>
 
             <details style={s.dataSource}>
@@ -117,17 +131,17 @@ export default function App() {
             <div style={s.workflow}>
               <h3 style={s.wfTitle}>How praana works</h3>
               <div style={s.wfSteps}>
-                <div style={s.wfStep}><span style={s.wfNum}>1</span><span>You describe your need in plain text</span></div>
+                <div style={s.wfStep}><span style={s.wfNum}>1</span><span>You describe your need in plain text — any language</span></div>
                 <div style={s.wfArrow}>↓</div>
-                <div style={s.wfStep}><span style={s.wfNum}>2</span><span>AI extracts blood group, hospital & urgency</span></div>
+                <div style={s.wfStep}><span style={s.wfNum}>2</span><span>AI extracts blood group, hospital, units & maps to nearest donor-searchable area</span></div>
                 <div style={s.wfArrow}>↓</div>
-                <div style={s.wfStep}><span style={s.wfNum}>3</span><span>We pull matching donors from public registries <span style={{fontSize:10,color:"#999"}}>(Friends2Support, 3M+ donors)</span></span></div>
+                <div style={s.wfStep}><span style={s.wfNum}>3</span><span>Searches real donor registries by blood group + location <span style={{fontSize:10,color:"#999"}}>(3M+ donors on Friends2Support)</span></span></div>
                 <div style={s.wfArrow}>↓</div>
-                <div style={s.wfStep}><span style={s.wfNum}>4</span><span>Voice AI calls donors in their language — confirms availability & ETA</span></div>
+                <div style={s.wfStep}><span style={s.wfNum}>4</span><span>Voice AI calls all matching donors simultaneously — in their language</span></div>
                 <div style={s.wfArrow}>↓</div>
-                <div style={s.wfStep}><span style={s.wfNum}>5</span><span>Confirmed donor gets <strong>your WhatsApp link</strong> to coordinate directly</span></div>
+                <div style={s.wfStep}><span style={s.wfNum}>5</span><span>Confirmed donor gets your WhatsApp link + hospital details instantly</span></div>
                 <div style={s.wfArrow}>↓</div>
-                <div style={s.wfStep}><span style={s.wfNum}>6</span><span>Repeat donors are reminded of past impact — "you saved a life last time"</span></div>
+                <div style={s.wfStep}><span style={s.wfNum}>6</span><span>System remembers every donation — repeat donors hear their impact story on next call</span></div>
               </div>
               <div style={s.wfDisclaimer}>
                 <strong>Privacy & Safety:</strong> Donor phone numbers are never shared with you. Only your number is shared with the confirmed donor. All calls are consent-based. Currently in demo mode — only verified team numbers are called.
@@ -157,16 +171,23 @@ export default function App() {
               {events.map((ev, i) => (
                 <div key={i} style={s.event}>
                   <span style={s.icon}>{icon(ev.type)}</span>
+                  <span style={s.eventTime}>{i === 0 ? "0s" : `+${((ev.timestamp - events[0].timestamp) / 1000).toFixed(1)}s`}</span>
                   {ev.message || ev.type}
                   {ev.type === "donors_found" && ev.donors && (
                     <div style={s.donorList}>{ev.donors.map((d,j) => <span key={j} style={s.donorTag}>{d.name.split(" ")[0]}</span>)}</div>
                   )}
                 </div>
               ))}
-              {events.length > 0 && events[events.length - 1]?.type === "call_initiated" && (
+              {events.length > 0 && ["call_initiated","call_started"].includes(events[events.length - 1]?.type) && (
                 <div style={s.waiting}>
                   <div style={s.pulse} />
                   <span>Call in progress — waiting for donor's response...</span>
+                </div>
+              )}
+              {events.length > 0 && events[events.length - 1]?.type === "call_completed" && step === "processing" && (
+                <div style={s.waiting}>
+                  <div style={s.pulse} />
+                  <span>Call ended — analyzing response...</span>
                 </div>
               )}
             </div>
@@ -224,11 +245,17 @@ const s = {
   input: { padding: 16, border: "1px solid #e0e0e0", borderRadius: 12, fontSize: 15, background: "#fff", color: "#1a1a1a", boxSizing: "border-box" },
   btn: { padding: 16, background: "#1a1a1a", color: "#fff", border: "none", borderRadius: 12, fontSize: 15, fontWeight: 600, cursor: "pointer" },
   trust: { textAlign: "center", fontSize: 12, color: "#999", margin: 0 },
+  demoBox: { marginTop: 12, background: "#fffbeb", border: "1px solid #fde68a", borderRadius: 8, padding: "8px 12px" },
+  demoSummary: { fontSize: 12, color: "#92400e", cursor: "pointer" },
+  demoFields: { display: "flex", gap: 8, marginTop: 8, flexWrap: "wrap" },
+  demoInput: { flex: 1, minWidth: 120, padding: 8, border: "1px solid #fde68a", borderRadius: 6, fontSize: 13 },
+  demoBtn: { padding: "8px 12px", background: "#92400e", color: "#fff", border: "none", borderRadius: 6, fontSize: 12, cursor: "pointer" },
 
   feedWrap: { background: "#fff", border: "1px solid #e8e8e8", borderRadius: 14, padding: 20 },
   feedTitle: { margin: "0 0 14px", fontSize: 15, fontWeight: 500, color: "#333" },
   feed: { maxHeight: 360, overflowY: "auto", fontSize: 13, lineHeight: 2.0 },
   event: { color: "#555" },
+  eventTime: { fontSize: 10, color: "#aaa", marginRight: 6, minWidth: 36, display: "inline-block" },
   donorList: { display: "flex", flexWrap: "wrap", gap: 6, marginTop: 4 },
   donorTag: { background: "#f0f9ff", border: "1px solid #e0f2fe", borderRadius: 4, padding: "2px 8px", fontSize: 11, color: "#0369a1" },
   icon: { marginRight: 10, opacity: 0.7 },

@@ -17,7 +17,7 @@ async function scrapeDonors(params, options = {}) {
   try {
     await page.goto(
       "https://www.friends2support.org/inner/news/searchresult.aspx",
-      { waitUntil: "domcontentloaded", timeout: 30000 }
+      { waitUntil: "domcontentloaded", timeout: 15000 }
     );
 
     // Blood Group
