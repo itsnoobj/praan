@@ -486,6 +486,14 @@ app.post("/api/webhooks/ringg/registration", (req, res) => {
   }
 });
 
+// --- No-show tracking ---
+app.post("/api/donation/no-show", async (req, res) => {
+  const { donor_phone, request_id } = req.body;
+  if (!donor_phone || !request_id) return res.status(400).json({ error: "donor_phone and request_id required" });
+  await db.recordNoShow(donor_phone, request_id);
+  res.json({ status: "recorded", note: "Donor reliability score updated" });
+});
+
 // --- Confirm donation happened (post-donation) ---
 app.post("/api/donation/confirm", async (req, res) => {
   const { donor_phone, request_id } = req.body;

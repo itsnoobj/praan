@@ -153,6 +153,17 @@ const db = {
   async getRequests() {
     return query("requests", "GET", null, "?order=created_at.desc&limit=20");
   },
+
+  async recordNoShow(donorPhone, requestId) {
+    // Update donor reliability score
+    await query("donation_history", "POST", {
+      donor_phone: donorPhone,
+      request_id: requestId,
+      hospital: "NO_SHOW",
+      blood_group: null,
+      impact_note: "no_show",
+    });
+  },
 };
 
 module.exports = { db };

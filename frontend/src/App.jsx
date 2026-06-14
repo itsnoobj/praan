@@ -103,7 +103,7 @@ export default function App() {
                 Find donors
               </button>
 
-              <p style={s.trust}>No signup · Pay ₹299 only if donor arrives · No donor = ₹0</p>
+              <p style={s.trust}>No signup · <details style={{display:"inline"}}><summary style={{display:"inline",cursor:"pointer",textDecoration:"underline"}}>Pay ₹299 only if donor arrives</summary><span style={{display:"block",marginTop:4,fontSize:11,color:"#666",lineHeight:1.5}}>This fee covers voice AI calls, WhatsApp delivery, and keeps the platform running without ads or data selling. No donor found = ₹0. We don't profit — we sustain.</span></details> · No donor = ₹0</p>
 
               <details style={s.demoBox}>
                 <summary style={s.demoSummary}>📞 Try it: hear what donors hear when you call</summary>
