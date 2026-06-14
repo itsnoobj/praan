@@ -32,12 +32,17 @@ export default function App() {
 
   function startVoice() {
     const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
-    if (!SR) return;
+    if (!SR) { alert("Voice input not supported in this browser. Use Chrome."); return; }
     const r = new SR();
-    r.lang = "hi-IN";
+    r.lang = "en-IN";
+    r.continuous = true;
     r.interimResults = true;
     r.onstart = () => setIsListening(true);
-    r.onresult = (e) => setMessage(Array.from(e.results).map(r => r[0].transcript).join(""));
+    r.onresult = (e) => {
+      const transcript = Array.from(e.results).map(r => r[0].transcript).join("");
+      setMessage(transcript);
+    };
+    r.onerror = (e) => { console.error("Speech error:", e.error); setIsListening(false); };
     r.onend = () => setIsListening(false);
     r.start();
   }
@@ -84,13 +89,6 @@ export default function App() {
                   rows={5}
                   style={s.textarea}
                 />
-                <button
-                  type="button"
-                  onClick={startVoice}
-                  style={{ ...s.mic, background: isListening ? "#ef4444" : "#1a1a1a", color: "#fff" }}
-                >
-                  {isListening ? "⏹ Stop" : "🎤 Speak"}
-                </button>
               </div>
 
               <input
@@ -108,11 +106,43 @@ export default function App() {
               <p style={s.trust}>No signup · Pay ₹299 only if donor arrives · No donor = ₹0</p>
             </form>
 
-            <footer style={s.footer}>
-              <a href="#donor" style={s.donorBtn}>Become a donor → See benefits</a>
-              <p style={s.donorStats}>
-                <a href="https://timesofindia.indiatimes.com/life-style/health-fitness/health-news/blood-donation-are-you-eligible-to-donate-blood-all-about-the-rules-of-blood-donation/articleshow/117388629.cms" target="_blank" rel="noopener" style={s.cite}>12,000 lives lost daily</a> due to blood shortage · <a href="https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0265951" target="_blank" rel="noopener" style={s.cite}>14.6M units needed/year</a> · 1 donation saves up to 3 lives
+            <details style={s.dataSource}>
+              <summary style={s.dataSourceTitle}>Where do we find donors?</summary>
+              <img src="/friends2support-screenshot.png" alt="Friends2Support" style={{width:"100%",borderRadius:8,border:"1px solid #eee",marginTop:10}} />
+              <p style={s.dataSourceNote}>
+                Real data from <a href="https://www.friends2support.org/inner/news/searchresult.aspx" target="_blank" rel="noopener" style={{color:"#1a1a1a",fontWeight:500}}>Friends2Support.org</a> — 3M+ voluntary donors across India. We pull by blood group, city & area via AI agent. More registries coming.
               </p>
+            </details>
+
+            {/* How it works */}
+            <div style={s.workflow}>
+              <h3 style={s.wfTitle}>How praana works</h3>
+              <div style={s.wfSteps}>
+                <div style={s.wfStep}><span style={s.wfNum}>1</span><span>You describe your need in plain text</span></div>
+                <div style={s.wfArrow}>↓</div>
+                <div style={s.wfStep}><span style={s.wfNum}>2</span><span>AI extracts blood group, hospital & urgency</span></div>
+                <div style={s.wfArrow}>↓</div>
+                <div style={s.wfStep}><span style={s.wfNum}>3</span><span>We pull matching donors from public registries <span style={{fontSize:10,color:"#999"}}>(Friends2Support, 3M+ donors)</span></span></div>
+                <div style={s.wfArrow}>↓</div>
+                <div style={s.wfStep}><span style={s.wfNum}>4</span><span>Voice AI calls donors in their language — confirms availability & ETA</span></div>
+                <div style={s.wfArrow}>↓</div>
+                <div style={s.wfStep}><span style={s.wfNum}>5</span><span>Confirmed donor gets <strong>your WhatsApp link</strong> to coordinate directly</span></div>
+                <div style={s.wfArrow}>↓</div>
+                <div style={s.wfStep}><span style={s.wfNum}>6</span><span>Repeat donors are reminded of past impact — "you saved a life last time"</span></div>
+              </div>
+              <div style={s.wfDisclaimer}>
+                <strong>Privacy & Safety:</strong> Donor phone numbers are never shared with you. Only your number is shared with the confirmed donor. All calls are consent-based. Currently in demo mode — only verified team numbers are called.
+              </div>
+            </div>
+
+            <footer style={s.footer}>
+              <div style={s.donorCta}>
+                <p style={s.donorCtaText}>Want to save a life someday?</p>
+                <a href="#donor" style={s.donorBtn}>Become a donor</a>
+                <p style={s.donorStats}>
+                  <a href="https://timesofindia.indiatimes.com/life-style/health-fitness/health-news/blood-donation-are-you-eligible-to-donate-blood-all-about-the-rules-of-blood-donation/articleshow/117388629.cms" target="_blank" rel="noopener" style={s.cite}>12,000 lives lost daily</a> · <a href="https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0265951" target="_blank" rel="noopener" style={s.cite}>14.6M units needed/year</a> · 1 donation saves 3 lives
+                </p>
+              </div>
             </footer>
           </>
         )}
@@ -149,7 +179,7 @@ export default function App() {
               </div>
             ))}
             <p style={s.resultNote}>Details sent to your WhatsApp.</p>
-            <details style={{ marginTop: 20 }}>
+            <details style={{ marginTop: 20, textAlign: "left" }}>
               <summary style={s.detailsToggle}>Activity log</summary>
               <div style={s.feed}>
                 {events.map((ev, i) => (
@@ -203,12 +233,25 @@ const s = {
   donorName: { fontWeight: 500, color: "#1a1a1a" },
   donorEta: { color: "#16a34a", fontSize: 13 },
   resultNote: { fontSize: 13, color: "#999", marginTop: 14 },
-  detailsToggle: { cursor: "pointer", fontSize: 12, color: "#aaa" },
+  detailsToggle: { cursor: "pointer", fontSize: 12, color: "#aaa", textAlign: "left" },
 
-  footer: { textAlign: "center", marginTop: 32 },
-  donorBtn: { display: "block", padding: "16px 24px", background: "#f0fdf4", border: "2px solid #16a34a", borderRadius: 12, fontSize: 16, fontWeight: 600, color: "#16a34a", textDecoration: "none" },
-  donorStats: { fontSize: 12, color: "#888", marginTop: 10, lineHeight: 1.6 },
-  cite: { color: "#555", textDecoration: "underline" },
+  footer: { marginTop: 32 },
+  dataSource: { marginTop: 28, background: "#fff", border: "1px solid #e8e8e8", borderRadius: 12, padding: 16 },
+  dataSourceTitle: { fontSize: 13, fontWeight: 600, color: "#1a1a1a", cursor: "pointer" },
+  dataSourceNote: { fontSize: 12, color: "#666", marginTop: 8, lineHeight: 1.6, marginBottom: 0 },
+
+  workflow: { marginTop: 28, background: "#fff", border: "1px solid #e8e8e8", borderRadius: 12, padding: 20 },
+  wfTitle: { fontSize: 15, fontWeight: 600, margin: "0 0 14px", color: "#1a1a1a" },
+  wfSteps: { display: "flex", flexDirection: "column", alignItems: "flex-start" },
+  wfStep: { display: "flex", alignItems: "center", gap: 10, fontSize: 13, color: "#333", padding: "6px 0" },
+  wfNum: { width: 22, height: 22, borderRadius: 11, background: "#1a1a1a", color: "#fff", fontSize: 11, fontWeight: 600, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 },
+  wfArrow: { color: "#ccc", fontSize: 12, paddingLeft: 6 },
+  wfDisclaimer: { marginTop: 14, fontSize: 11, color: "#666", background: "#f8f9fa", padding: "10px 12px", borderRadius: 8, lineHeight: 1.6 },
+  donorCta: { textAlign: "center", background: "#f8faf8", border: "1px solid #e2e8e2", borderRadius: 12, padding: "20px 16px" },
+  donorCtaText: { fontSize: 14, color: "#444", margin: "0 0 10px" },
+  donorBtn: { display: "inline-block", padding: "12px 28px", background: "#1a1a1a", color: "#fff", borderRadius: 8, fontSize: 14, fontWeight: 600, textDecoration: "none" },
+  donorStats: { fontSize: 11, color: "#999", marginTop: 12, marginBottom: 0, lineHeight: 1.6 },
+  cite: { color: "#666", textDecoration: "underline" },
   link: { color: "#555", fontSize: 13, textDecoration: "none", borderBottom: "1px solid #ddd" },
   waiting: { display: "flex", alignItems: "center", gap: 10, marginTop: 12, padding: "10px 14px", background: "#f0f9ff", borderRadius: 8, fontSize: 13, color: "#0369a1" },
   pulse: { width: 10, height: 10, borderRadius: 5, background: "#0ea5e9", animation: "pulse 1.5s infinite" },

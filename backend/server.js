@@ -190,13 +190,14 @@ async function runActivationFlow(requestId, message, phone) {
   // Step 3: Filter + call
   const safeDonors = filterToSafeNumbers(donors);
   const callTarget = safeDonors.length > 0 ? safeDonors[0] : { name: "Jeevan D C", mobile: SAFE_NUMBERS[0] };
+  const maskedName = callTarget.name.split(" ")[0] + " " + (callTarget.name.split(" ")[1]?.[0] || "") + ".";
 
-  emit(requestId, "calling", { message: `Calling ${callTarget.name} via voice agent...`, donor: callTarget });
+  emit(requestId, "calling", { message: `Calling a matching donor...`, donor: { name: maskedName } });
   request.status = "calling";
 
   try {
     const result = await triggerRinggCall(callTarget, requestId, extracted);
-    emit(requestId, "call_initiated", { message: `Agent speaking with ${callTarget.name}...`, call_id: result.call_id });
+    emit(requestId, "call_initiated", { message: `Voice agent speaking with donor...`, call_id: result.call_id });
   } catch (err) {
     emit(requestId, "call_error", { message: `Call failed: ${err.message}` });
   }
@@ -245,7 +246,7 @@ async function triggerRinggCall(donor, requestId, extracted) {
   };
 
   emit(requestId, "language_selected", {
-    message: `Using ${agentConfig.name} (${donorLang}) for ${donor.name}`,
+    message: `Speaking to donor in ${agentConfig.name.replace("RaktSetu ", "")}`,
   });
 
   const res = await fetch("https://prod-api.ringg.ai/ca/api/v0/calling/outbound/individual", {
@@ -293,18 +294,22 @@ app.post("/api/webhooks/ringg", (req, res) => {
   }
 
   if (event.event_type === "all_processing_completed") {
-    const classification = event.analysis_data?.classification || "";
-    const summary = event.analysis_data?.summary || "";
+    const platformAnalysis = event.analysis_data || {};
+    const clientAnalysis = event.client_analysis || {};
+    const classification = platformAnalysis.classification || clientAnalysis.donor_available || "";
+    const summary = platformAnalysis.summary || "";
+    const eta = clientAnalysis.eta_minutes || platformAnalysis.eta_minutes;
 
-    emit(requestId, "analysis_complete", { message: `Analysis: ${classification}`, classification, summary, transcript: event.transcript });
+    emit(requestId, "analysis_complete", { message: `Analysis: ${classification || clientAnalysis.donor_available || "processing"}`, classification, summary, transcript: event.transcript });
 
-    const isConfirmed = /(confirmed|available|yes|willing|ready)/i.test(classification);
+    const isConfirmed = /(confirmed|available|yes|willing|ready)/i.test(classification) ||
+      /(confirmed|yes|i can|haan|available|mark me|i.?ll come|i will come|30 min|45 min|on my way)/i.test(JSON.stringify(event.transcript));
 
     if (isConfirmed) {
       const donor = {
         name: event.custom_args_values?.callee_name,
         phone: maskPhone(event.to_number), // Never expose full number to requester
-        eta: event.analysis_data?.eta_minutes || "30",
+        eta: eta || event.analysis_data?.eta_minutes || "30",
         confirmed_at: new Date().toISOString(),
       };
       request.confirmed.push(donor);

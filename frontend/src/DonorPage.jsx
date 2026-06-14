@@ -78,16 +78,47 @@ export default function DonorPage() {
             </div>
           </div>
           <div style={s.fwLoop}>
-            <div style={s.fwWheel}>
-              <div style={s.fwCenter}>♻️<br/><span style={{fontSize:10}}>self-sustaining</span></div>
-              <div style={{...s.fwStep, top: 0, left: "50%", transform: "translateX(-50%)"}}>Families pay ₹299</div>
-              <div style={{...s.fwStep, top: "20%", right: 0}}>Covers call costs</div>
-              <div style={{...s.fwStep, bottom: "20%", right: 0}}>Donors get free<br/>health benefits</div>
-              <div style={{...s.fwStep, bottom: 0, left: "50%", transform: "translateX(-50%)"}}>Donors stay engaged</div>
-              <div style={{...s.fwStep, bottom: "20%", left: 0}}>More donors<br/>available</div>
-              <div style={{...s.fwStep, top: "20%", left: 0}}>Faster matches</div>
-            </div>
-            <p style={s.fwArrow}>↻ Funded by diagnostic partners. No external funding needed after kickstart.</p>
+            <svg viewBox="0 0 500 320" fill="none" xmlns="http://www.w3.org/2000/svg" style={{width:"100%",maxWidth:400,height:"auto",margin:"0 auto",display:"block"}}>
+              {/* Center */}
+              <circle cx="250" cy="160" r="40" fill="#f0fdf4" stroke="#16a34a" strokeWidth="2"/>
+              <text x="250" y="155" textAnchor="middle" fontSize="11" fontWeight="700" fill="#16a34a">self</text>
+              <text x="250" y="170" textAnchor="middle" fontSize="11" fontWeight="700" fill="#16a34a">sustaining</text>
+
+              {/* Circular arrows */}
+              <path d="M 250 60 A 100 100 0 0 1 350 160" fill="none" stroke="#e2e8f0" strokeWidth="2" markerEnd="url(#arrow)"/>
+              <path d="M 350 160 A 100 100 0 0 1 250 260" fill="none" stroke="#e2e8f0" strokeWidth="2" markerEnd="url(#arrow)"/>
+              <path d="M 250 260 A 100 100 0 0 1 150 160" fill="none" stroke="#e2e8f0" strokeWidth="2" markerEnd="url(#arrow)"/>
+              <path d="M 150 160 A 100 100 0 0 1 250 60" fill="none" stroke="#e2e8f0" strokeWidth="2" markerEnd="url(#arrow)"/>
+              <defs><marker id="arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M 0 0 L 6 3 L 0 6 Z" fill="#94a3b8"/></marker></defs>
+
+              {/* Nodes */}
+              {/* Top */}
+              <rect x="185" y="15" width="130" height="36" rx="8" fill="#fff" stroke="#e2e8f0" strokeWidth="1.5"/>
+              <text x="250" y="38" textAnchor="middle" fontSize="11" fontWeight="600" fill="#1a1a1a">Family pays ₹299</text>
+
+              {/* Right top */}
+              <rect x="370" y="90" width="120" height="36" rx="8" fill="#fff" stroke="#e2e8f0" strokeWidth="1.5"/>
+              <text x="430" y="113" textAnchor="middle" fontSize="11" fontWeight="600" fill="#1a1a1a">Covers call costs</text>
+
+              {/* Right bottom */}
+              <rect x="370" y="195" width="120" height="44" rx="8" fill="#fff" stroke="#e2e8f0" strokeWidth="1.5"/>
+              <text x="430" y="214" textAnchor="middle" fontSize="10" fontWeight="600" fill="#1a1a1a">Donors get free</text>
+              <text x="430" y="228" textAnchor="middle" fontSize="10" fontWeight="600" fill="#1a1a1a">health benefits</text>
+
+              {/* Bottom */}
+              <rect x="180" y="270" width="140" height="36" rx="8" fill="#fff" stroke="#e2e8f0" strokeWidth="1.5"/>
+              <text x="250" y="293" textAnchor="middle" fontSize="11" fontWeight="600" fill="#1a1a1a">Donors stay engaged</text>
+
+              {/* Left bottom */}
+              <rect x="10" y="195" width="120" height="44" rx="8" fill="#fff" stroke="#e2e8f0" strokeWidth="1.5"/>
+              <text x="70" y="214" textAnchor="middle" fontSize="10" fontWeight="600" fill="#1a1a1a">More donors</text>
+              <text x="70" y="228" textAnchor="middle" fontSize="10" fontWeight="600" fill="#1a1a1a">available</text>
+
+              {/* Left top */}
+              <rect x="10" y="90" width="120" height="36" rx="8" fill="#fff" stroke="#e2e8f0" strokeWidth="1.5"/>
+              <text x="70" y="113" textAnchor="middle" fontSize="11" fontWeight="600" fill="#1a1a1a">Faster matches</text>
+            </svg>
+            <p style={{textAlign:"center",fontSize:11,color:"#888",marginTop:8}}>Funded by diagnostic partners · No external funding needed after kickstart · Break-even at 4 activations/month</p>
           </div>
         </section>
 
@@ -95,6 +126,18 @@ export default function DonorPage() {
         <div style={s.grid}>
           {/* Left: Why + Impact */}
           <div style={s.left}>
+            {/* Data Source */}
+            <section style={s.card}>
+              <h3 style={s.cardTitle}>Where we find donors — real data, real numbers</h3>
+              <p style={{fontSize:13,color:"#555",marginBottom:12,lineHeight:1.6}}>
+                We pull donor data from <a href="https://www.friends2support.org/inner/news/searchresult.aspx" target="_blank" rel="noopener" style={{color:"#1a1a1a",fontWeight:600}}>Friends2Support.org</a> — India's largest voluntary donor registry with <strong>3M+ registered donors</strong>. Our agent scrapes by blood group, state, district, and city. These are real people who opted in to be contacted for donation.
+              </p>
+              <img src="/friends2support-screenshot.png" alt="Friends2Support donor search showing real results" style={{width:"100%",borderRadius:8,border:"1px solid #eee"}} />
+              <p style={{fontSize:11,color:"#999",marginTop:8}}>
+                Screenshot: O+ donors in JP Nagar, Bangalore — 12 pages of results. Phone numbers masked for privacy. More registries can be integrated (eRaktKosh, Sankalp, hospital blood banks).
+              </p>
+            </section>
+
             {/* Impact Memory */}
             <section style={s.card}>
               <h3 style={s.cardTitle}>We remember every donation</h3>
@@ -159,7 +202,7 @@ export default function DonorPage() {
               </table>
               <p style={s.fine}>
                 All code is open-source. All finances will be published monthly.<br/>
-                <a href="https://github.com" target="_blank" rel="noopener" style={s.ghLink}>GitHub → View source, audit everything</a>
+                <a href="https://github.com/itsnoobj/praan" target="_blank" rel="noopener" style={s.ghLink}>GitHub → View source, audit everything</a>
               </p>
             </section>
           </div>
@@ -229,11 +272,7 @@ const s = {
   fwEmoji: { fontSize: 28, marginBottom: 8 },
   fwRole: { fontSize: 13, fontWeight: 700, color: "#1a1a1a", marginBottom: 6 },
   fwBenefit: { fontSize: 12, color: "#555", lineHeight: 1.6 },
-  fwLoop: { position: "relative", background: "#fff", border: "1px solid #eee", borderRadius: 12, padding: 20 },
-  fwWheel: { position: "relative", width: "100%", height: 260, margin: "0 auto" },
-  fwCenter: { position: "absolute", top: "50%", left: "50%", transform: "translate(-50%,-50%)", textAlign: "center", fontSize: 28, color: "#16a34a", fontWeight: 600 },
-  fwStep: { position: "absolute", background: "#f8f9ff", border: "1px solid #e0e4ff", borderRadius: 8, padding: "8px 12px", fontSize: 11, color: "#333", fontWeight: 500, textAlign: "center", maxWidth: 130 },
-  fwArrow: { textAlign: "center", fontSize: 12, color: "#888", marginTop: 16, marginBottom: 0 },
+  fwLoop: { background: "#fff", border: "1px solid #eee", borderRadius: 12, padding: 16 },
 
   grid: { display: "grid", gridTemplateColumns: "1fr 320px", gap: 20, alignItems: "start" },
   left: { display: "flex", flexDirection: "column", gap: 16 },
