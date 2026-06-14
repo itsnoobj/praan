@@ -150,14 +150,13 @@ export default function DonorPage() {
               </div>
               <table style={s.table}>
                 <thead>
-                  <tr><th style={s.th}>Running Cost</th><th style={s.th}>Monthly</th><th style={s.th}>Covered By</th></tr>
+                  <tr><th style={s.th}>Cost</th><th style={s.th}>Per Activation</th><th style={s.th}>Covered By</th></tr>
                 </thead>
                 <tbody>
-                  <tr><td style={s.td}>Voice calls (Ringg AI)</td><td style={s.td}>~₹8/min ($0.10/min)</td><td style={s.td}>₹300+ activation fee</td></tr>
-                  <tr><td style={s.td}>Ringg AI platform</td><td style={s.td}>~₹3,800/mo ($46)</td><td style={s.td}>~15 activations cover it</td></tr>
-                  <tr><td style={s.td}>Server + DB</td><td style={s.td}>~₹500/mo</td><td style={s.td}>4 activations cover it</td></tr>
-                  <tr><td style={s.td}>WhatsApp/SMS</td><td style={s.td}>~₹1/msg</td><td style={s.td}>Activation fee</td></tr>
-                  <tr><td style={s.td}>Health checkups for donors</td><td style={s.td}>₹0 to us</td><td style={s.td}>Lab pays us ₹150/referral</td></tr>
+                  <tr><td style={s.td}>Voice calls (Ringg AI, ~2-3 min)</td><td style={s.td}>~₹20–25</td><td style={s.td}>₹300+ activation fee</td></tr>
+                  <tr><td style={s.td}>WhatsApp/SMS notifications</td><td style={s.td}>~₹3–5</td><td style={s.td}>₹300+ activation fee</td></tr>
+                  <tr><td style={s.td}>Ops (platform, infra, DB)</td><td style={s.td}>~₹10–15</td><td style={s.td}>₹300+ activation fee</td></tr>
+                  <tr style={{background:"#f0fdf4"}}><td style={{...s.td,fontWeight:600}}>Health checkups for donors</td><td style={{...s.td,fontWeight:600}}>₹0 to us</td><td style={{...s.td,fontWeight:600}}>Lab pays us ₹150/referral</td></tr>
                 </tbody>
               </table>
               <p style={s.fine}>
