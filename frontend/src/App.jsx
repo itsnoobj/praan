@@ -127,6 +127,14 @@ export default function App() {
                 Real data from <a href="https://www.friends2support.org/inner/news/searchresult.aspx" target="_blank" rel="noopener" style={{color:"#1a1a1a",fontWeight:500}}>Friends2Support.org</a> — 3M+ voluntary donors across India. We pull by blood group, city & area via AI agent. More registries coming.
               </p>
             </details>
+            <div style={s.donorCta}>
+              <p style={s.donorCtaText}>Want to save a life someday?</p>
+              <a href="#donor" style={s.donorBtn}>Become a donor</a>
+              <p style={s.donorStats}>
+                <a href="https://timesofindia.indiatimes.com/life-style/health-fitness/health-news/blood-donation-are-you-eligible-to-donate-blood-all-about-the-rules-of-blood-donation/articleshow/117388629.cms" target="_blank" rel="noopener" style={s.cite}>12,000 lives lost daily</a> · <a href="https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0265951" target="_blank" rel="noopener" style={s.cite}>14.6M units needed/year</a> · 1 donation saves 3 lives
+              </p>
+            </div>
+
             {/* How it works */}
             <div style={s.workflow}>
               <h3 style={s.wfTitle}>How praana works</h3>
@@ -151,13 +159,6 @@ export default function App() {
             </div>
 
             <footer style={s.footer}>
-              <div style={s.donorCta}>
-                <p style={s.donorCtaText}>Want to save a life someday?</p>
-                <a href="#donor" style={s.donorBtn}>Become a donor</a>
-                <p style={s.donorStats}>
-                  <a href="https://timesofindia.indiatimes.com/life-style/health-fitness/health-news/blood-donation-are-you-eligible-to-donate-blood-all-about-the-rules-of-blood-donation/articleshow/117388629.cms" target="_blank" rel="noopener" style={s.cite}>12,000 lives lost daily</a> · <a href="https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0265951" target="_blank" rel="noopener" style={s.cite}>14.6M units needed/year</a> · 1 donation saves 3 lives
-                </p>
-              </div>
               <p style={s.ghFooter}>
                 Open source · <a href="https://github.com/itsnoobj/praan" target="_blank" rel="noopener" style={s.ghFooterLink}>GitHub</a> · Built with <a href="https://www.ringg.ai" target="_blank" rel="noopener" style={s.ghFooterLink}>Ringg AI</a> · Voice-AI blood donor activation for India
               </p>
