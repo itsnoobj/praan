@@ -123,7 +123,7 @@ function regexExtract(message) {
 
 // --- Create request ---
 app.post("/api/request", async (req, res) => {
-  const { message, phone } = req.body;
+  const { message, phone, latitude, longitude, location_name } = req.body;
 
   if (!message || !phone) return res.status(400).json({ error: "message and phone required" });
   if (!checkRateLimit(phone)) return res.status(429).json({ error: "Too many requests. Max 3 per hour." });
@@ -133,6 +133,9 @@ app.post("/api/request", async (req, res) => {
     id: requestId,
     message,
     phone,
+    latitude: latitude || null,
+    longitude: longitude || null,
+    location_name: location_name || null,
     status: "processing",
     donors: [],
     confirmed: [],
@@ -319,6 +322,13 @@ app.post("/api/webhooks/ringg", (req, res) => {
       sendTelegramNotification(request, donor);
       db.saveConfirmedDonor(requestId, donor).catch(() => {});
       db.updateRequestStatus(requestId, "fulfilled").catch(() => {});
+
+      // Schedule follow-up call in 20 min to confirm donor is on the way
+      const etaMs = (parseInt(eta) || 30) * 60 * 1000;
+      const followUpDelay = Math.max(etaMs - 10 * 60 * 1000, 60000); // 10 min before ETA, min 1 min
+      setTimeout(() => {
+        triggerFollowUpCall(event.to_number, event.custom_args_values?.callee_name, requestId, request.extracted);
+      }, followUpDelay);
     } else {
       emit(requestId, "donor_unavailable", { message: `Donor unavailable: ${summary || classification}` });
     }
@@ -369,6 +379,42 @@ async function sendTelegramNotification(request, donor) {
   await sendWhatsApp(`whatsapp:+91${requesterPhone}`, requesterWAMsg).catch(() => {});
 
   emit(request.id, "notification_sent", { message: `📲 Hospital details + requester contact sent to donor via WhatsApp.` });
+}
+
+// --- Follow-up call (confirm donor is on the way) ---
+async function triggerFollowUpCall(donorPhone, donorName, requestId, extracted) {
+  if (!process.env.RINGG_API_KEY) return;
+
+  const payload = {
+    name: donorName || "Donor",
+    mobile_number: donorPhone,
+    agent_id: process.env.RINGG_AGENT_ID,
+    from_number_id: process.env.RINGG_FROM_NUMBER_ID,
+    custom_args_values: {
+      callee_name: donorName || "there",
+      blood_group: extracted?.blood_group || "",
+      hospital_name: extracted?.hospital || "the hospital",
+      hospital_address: extracted?.city || "",
+      request_id: `${requestId}-followup`,
+      preferred_language: "English",
+      requester_phone: "",
+      reason: "checking if you're on your way",
+      units_needed: "1",
+      donor_memory: "You confirmed a few minutes ago that you'd donate. Just checking — are you on your way to the hospital?",
+    },
+    callback_url: `${process.env.PUBLIC_URL}/api/webhooks/ringg`,
+  };
+
+  try {
+    await fetch("https://prod-api.ringg.ai/ca/api/v0/calling/outbound/individual", {
+      method: "POST",
+      headers: { "X-API-KEY": process.env.RINGG_API_KEY, "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+    console.log(`[FOLLOW-UP] Called ${donorName} to confirm they're on the way`);
+  } catch (err) {
+    console.error(`[FOLLOW-UP] Failed:`, err.message);
+  }
 }
 
 // --- WhatsApp via Twilio ---
@@ -432,23 +478,28 @@ function filterToSafeNumbers(allDonors) {
 const donors = new Map(); // phone -> { name, blood_group, city, language, emergency_override, registered_at }
 
 app.post("/api/donors/register", (req, res) => {
-  const { name, phone, blood_group, city, language, emergency_override } = req.body;
+  const { name, phone, blood_group, city, area, language, emergency_override, latitude, longitude, health_checkup_optin } = req.body;
   if (!phone || !blood_group) return res.status(400).json({ error: "phone and blood_group required" });
-  if (!ALLOWED_BLOOD_GROUPS.includes(blood_group)) return res.status(400).json({ error: "Invalid blood group" });
+  if (blood_group !== "unknown" && !ALLOWED_BLOOD_GROUPS.includes(blood_group)) return res.status(400).json({ error: "Invalid blood group" });
 
   donors.set(phone, {
     name: name || "Anonymous",
     phone,
     blood_group,
     city: city || "Unknown",
-    language: language || "hi-IN",
-    emergency_override: emergency_override !== false, // default: yes to 24/7
+    area: area || null,
+    latitude: latitude || null,
+    longitude: longitude || null,
+    language: language || "en-IN",
+    emergency_override: emergency_override !== false,
+    health_checkup_optin: health_checkup_optin || false,
     registered_at: new Date().toISOString(),
     total_donations: 0,
     last_donation_date: null,
     response_rate: 0.5,
   });
 
+  db.saveDonor({ phone, name, blood_group, city, language: language || "en-IN", emergency_override: emergency_override !== false }).catch(() => {});
   res.json({ status: "registered", donor_count: donors.size });
 });
 

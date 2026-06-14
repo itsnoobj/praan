@@ -79,6 +79,9 @@ const db = {
       reason: req.extracted?.reason,
       units: req.extracted?.units || 1,
       status: req.status,
+      latitude: req.latitude,
+      longitude: req.longitude,
+      location_name: req.location_name,
     });
   },
 
@@ -101,8 +104,12 @@ const db = {
       name: donor.name,
       blood_group: donor.blood_group,
       city: donor.city,
+      area: donor.area || null,
+      latitude: donor.latitude || null,
+      longitude: donor.longitude || null,
       language: donor.language || "en-IN",
       emergency_override: donor.emergency_override !== false,
+      health_checkup_optin: donor.health_checkup_optin || false,
     });
   },
 
