@@ -27,3 +27,5 @@ CONTEXT.md
 # IDE
 .vscode/
 .idea/
+AGENT_PROMPT.md
+AGENT_CONFIG_FINAL.md

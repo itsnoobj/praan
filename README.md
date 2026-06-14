@@ -71,15 +71,6 @@ npm install
 npm run dev
 ```
 
-## Demo Flow
-
-1. Open dashboard → select O+, Bangalore, J P Nagar
-2. Click "Find Donors NOW"
-3. Watch live feed: scraper navigates Friends2Support, finds donors
-4. System identifies Jeevan D C → calls via Ringg AI
-5. Jeevan picks up on stage → agent asks about donation availability
-6. Webhook fires → dashboard shows "✅ DONOR CONFIRMED"
-
 ## Safety
 
 Only numbers in `SAFE_NUMBERS` env var get called. Default: Jeevan's own number.
