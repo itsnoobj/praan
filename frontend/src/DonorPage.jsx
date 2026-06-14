@@ -14,7 +14,7 @@ export default function DonorPage() {
       body: JSON.stringify({
         name: f.get("name"), phone: f.get("phone"),
         blood_group: f.get("blood_group"), city: f.get("city"),
-        language: f.get("language"), emergency_override: true,
+        area: f.get("area"), language: f.get("language"), emergency_override: true,
         health_checkup_optin: f.get("health_checkup") === "yes",
       }),
     });
@@ -178,7 +178,24 @@ export default function DonorPage() {
                   {["A+","A-","B+","B-","O+","O-","AB+","AB-"].map(g => <option key={g} value={g}>{g}</option>)}
                   <option value="unknown">Don't know</option>
                 </select>
-                <input name="city" placeholder="City / Village" style={s.input} />
+                <input name="city" placeholder="City / Town" style={s.input} />
+                <input name="area" placeholder="Area / Village / Locality" style={s.input} />
+                <button type="button" style={s.locBtn} onClick={() => {
+                  if (!navigator.geolocation) return alert("Geolocation not supported");
+                  navigator.geolocation.getCurrentPosition(
+                    (pos) => {
+                      const {latitude, longitude} = pos.coords;
+                      fetch(`https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`)
+                        .then(r => r.json())
+                        .then(d => {
+                          const a = d.address || {};
+                          document.querySelector('[name="city"]').value = a.city || a.town || a.state_district || "";
+                          document.querySelector('[name="area"]').value = a.village || a.suburb || a.neighbourhood || a.county || "";
+                        });
+                    },
+                    () => alert("Location access denied")
+                  );
+                }}>📍 Use my location</button>
                 <select name="language" style={s.input}>
                   <option value="en-IN">English</option>
                   <option value="hi-IN">Hindi</option>
@@ -325,6 +342,7 @@ const s = {
   input: { padding: 12, border: "1px solid #e0e0e0", borderRadius: 8, fontSize: 14, background: "#fafafa", boxSizing: "border-box" },
   optin: { display: "flex", alignItems: "flex-start", gap: 8, fontSize: 12, color: "#555", cursor: "pointer" },
   btn: { padding: 14, background: "#1a1a1a", color: "#fff", border: "none", borderRadius: 8, fontSize: 14, fontWeight: 600, cursor: "pointer", marginTop: 4 },
+  locBtn: { padding: 10, background: "#f0fdf4", border: "1px solid #bbf7d0", borderRadius: 8, fontSize: 13, cursor: "pointer", color: "#15803d", fontWeight: 500 },
   promises: { display: "flex", justifyContent: "center", gap: 12, fontSize: 11, color: "#999", marginTop: 10, flexWrap: "wrap" },
 
   checkMark: { width: 52, height: 52, borderRadius: 26, background: "#ecfdf5", color: "#16a34a", fontSize: 26, lineHeight: "52px", margin: "0 auto 14px", fontWeight: 600 },
