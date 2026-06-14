@@ -144,7 +144,9 @@ export default function App() {
                 <div style={s.wfStep}><span style={s.wfNum}>6</span><span>System remembers every donation — repeat donors hear their impact story on next call</span></div>
               </div>
               <div style={s.wfDisclaimer}>
-                <strong>Privacy & Safety:</strong> Donor phone numbers are never shared with you. Only your number is shared with the confirmed donor. All calls are consent-based. Currently in demo mode — only verified team numbers are called.
+                <strong>Memory:</strong> The agent uses 3 layers — current request (blood group, hospital, urgency), donor history (past donations, impact stories from DB), and business rules (90-day eligibility, consent preferences). Repeat donors hear their impact story. First-time donors get a clear explanation.
+                <br/><br/>
+                <strong>Privacy & Safety:</strong> Donor phone numbers are never shared with you. Only your number is shared with the confirmed donor. All calls are consent-based. Currently in demo mode — only verified numbers are called.
               </div>
             </div>
 
@@ -204,7 +206,16 @@ export default function App() {
                 <span style={s.donorEta}>~{d.eta || "30"} min away</span>
               </div>
             ))}
-            <p style={s.resultNote}>Details sent to your WhatsApp.</p>
+            <p style={s.resultNote}>Hospital details and requester's WhatsApp sent to donor.</p>
+
+            <div style={s.systemActions}>
+              <p style={s.systemTitle}>What happened behind the scenes:</p>
+              <div style={s.systemItem}>✓ Donor confirmation saved to database</div>
+              <div style={s.systemItem}>✓ WhatsApp with hospital + requester link sent to donor</div>
+              <div style={s.systemItem}>✓ 7-day impact story reminder scheduled</div>
+              <div style={s.systemItem}>✓ 90-day re-eligibility reminder scheduled</div>
+              <div style={s.systemItem}>✓ Donor memory updated for next call personalization</div>
+            </div>
             <details style={{ marginTop: 20, textAlign: "left" }}>
               <summary style={s.detailsToggle}>Activity log</summary>
               <div style={s.feed}>
@@ -267,6 +278,9 @@ const s = {
   donorName: { fontWeight: 500, color: "#1a1a1a" },
   donorEta: { color: "#16a34a", fontSize: 13 },
   resultNote: { fontSize: 13, color: "#999", marginTop: 14 },
+  systemActions: { marginTop: 16, background: "#f8f9fa", border: "1px solid #e8e8e8", borderRadius: 8, padding: 14, textAlign: "left" },
+  systemTitle: { fontSize: 11, fontWeight: 600, color: "#666", margin: "0 0 8px" },
+  systemItem: { fontSize: 12, color: "#555", padding: "3px 0" },
   detailsToggle: { cursor: "pointer", fontSize: 12, color: "#aaa", textAlign: "left" },
 
   footer: { marginTop: 32 },
