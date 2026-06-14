@@ -76,7 +76,7 @@ async function extractRequest(message) {
       max_tokens: 200,
       messages: [{
         role: "user",
-        content: `Extract blood donation request from this message. Return ONLY valid JSON, nothing else.\n\nMessage: "${message}"\n\nReturn: {"blood_group": "O+/O-/A+/A-/B+/B-/AB+/AB- or null", "hospital": "hospital name or null", "city": "area/city name or null", "urgency": "emergency/routine", "reason": "brief reason like accident, surgery, delivery or null", "units": "number of units needed or 1"}`
+        content: `Extract blood donation request from this message. Return ONLY valid JSON, nothing else.\n\nMessage: "${message}"\n\nReturn: {"blood_group": "O+/O-/A+/A-/B+/B-/AB+/AB- or null", "hospital": "hospital name or null", "city": "map to nearest known area from this list: J P Nagar, Koramangala, Whitefield, Electronic City, Indiranagar, HSR Layout, BTM Layout, Marathahalli, Jayanagar, Rajajinagar, Hebbal, Banashankari, Malleshwaram, Yelahanka. If unsure use J P Nagar", "urgency": "emergency/routine", "reason": "brief reason like accident, surgery, delivery or null", "units": "number of units needed or 1"}`
       }],
     };
 

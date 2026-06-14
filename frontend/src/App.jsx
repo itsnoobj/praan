@@ -158,6 +158,9 @@ export default function App() {
                 <div key={i} style={s.event}>
                   <span style={s.icon}>{icon(ev.type)}</span>
                   {ev.message || ev.type}
+                  {ev.type === "donors_found" && ev.donors && (
+                    <div style={s.donorList}>{ev.donors.map((d,j) => <span key={j} style={s.donorTag}>{d.name}</span>)}</div>
+                  )}
                 </div>
               ))}
               {events.length > 0 && events[events.length - 1]?.type === "call_initiated" && (
@@ -226,6 +229,8 @@ const s = {
   feedTitle: { margin: "0 0 14px", fontSize: 15, fontWeight: 500, color: "#333" },
   feed: { maxHeight: 360, overflowY: "auto", fontSize: 13, lineHeight: 2.0 },
   event: { color: "#555" },
+  donorList: { display: "flex", flexWrap: "wrap", gap: 6, marginTop: 4 },
+  donorTag: { background: "#f0f9ff", border: "1px solid #e0f2fe", borderRadius: 4, padding: "2px 8px", fontSize: 11, color: "#0369a1" },
   icon: { marginRight: 10, opacity: 0.7 },
 
   result: { textAlign: "center", paddingTop: 20 },
